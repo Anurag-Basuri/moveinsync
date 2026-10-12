@@ -199,8 +199,50 @@ moveinsync/
 
 ---
 
+## 🧠 The Engineering Journey: How We Found the Solution
+
+### 1. From Ambiguity to a Commute-First Mental Model
+The starting prompt was deceptively open-ended: *"Analyze our Play Store reviews."* No dataset was provided, no apps were specified, and no format was dictated. 
+
+A conventional approach would be to dump reviews into a word cloud or basic sentiment analyzer and conclude that *"ratings are low because of app bugs."* But in **Forward Deployed Engineering (FDE)**, that would fail the core mission: you don't just report bugs, **you diagnose why things break and build the missing fix**.
+
+MoveInSync is not an on-demand ride-hailing app like Uber or Ola. It is a **mission-critical enterprise B2B commute platform**. Employees don't open the app for leisure; they rely on it twice a day to reach their workplace and return home safely. 
+
+Reading through hundreds of reviews revealed a clear pattern: user frustration wasn't evenly distributed across the app. It clustered at **high-anxiety transition points in the commute journey**:
+- Trying to book before an office roster deadline closes.
+- Standing on the street at 8:00 AM wondering why the driver's vehicle marker is jumping around.
+- Opening the cab door in the rain, only to be blocked from viewing the Boarding OTP by a mandatory safety dialog.
+
+This led to our core framework: **map every single piece of feedback directly to the commute lifecycle** and measure the mathematical **Weighted Rating Drag** of each issue so engineering teams know exactly what to fix first.
+
+---
+
+### 2. Tools Used & How We Used Them
+
+This project was built through a deliberate, human-directed pairing of specialized tools:
+
+#### 🤖 Claude — Strategy, Hypothesis Testing & Evaluation
+- **Validating the Analytical Framework:** Used Claude to stress-test our problem breakdown, debate whether the commute journey stages covered MoveInSync's real-world operations, and confirm that our taxonomy avoided blind spots.
+- **Formulating the Rating Drag Metric:** Pressure-tested the mathematical model for **Weighted Rating Drag** ($(\text{Volume} / \text{Total}) \times (\text{Avg} - \text{Issue Avg})$) to ensure it prioritized high-severity dealbreakers over noisy, low-impact suggestions.
+- **Reviewing & Verifying Hypotheses:** Evaluated early data findings to ensure our recommendations bridged customer pain with realistic engineering sprints rather than generic feature wishlists.
+
+#### ⚡ Antigravity — Implementation, Architecture & Dashboard Polish
+- **Modular Pipeline Refactoring:** Used Antigravity to organize raw scripts into clean, production-grade Python packages (`pipeline/collect_reviews.py`, `pipeline/tag_reviews.py`, `pipeline/analyze_reviews.py`, `pipeline/generate_memo.py`) with clean, single-line human comments and unified CLI orchestrator (`run_pipeline.py`).
+- **Frontend Architecture Separation:** Cleanly split the monolithic HTML dashboard into decoupled `index.html`, modern `styles.css` design system, and reactive `app.js`.
+- **Live Browser Auditing & Glitch Fixing:** Leveraged Antigravity's browser automation and Chrome DevTools MCP to capture live page states, identify CSS Grid blowout bugs that squished charts, and eliminate memory leaks on Chart.js tab re-renders.
+- **Git & Release Management:** Orchestrated git staging, `.gitignore` configuration to protect `.env` secrets, and automated repository deployment.
+
+#### 🚀 Google Gemini API (`gemini-2.5-flash-lite` / `gemini-2.0-flash`)
+- **High-Throughput Semantic Tagging:** Selected for its generous rate limits and rapid JSON batch processing, categorizing hundreds of raw reviews into journey stages and issue types in seconds with high accuracy.
+
+#### 📊 Chart.js & Vanilla Web Stack
+- **Zero-Dependency Visual Intelligence:** Built without heavy framework overhead to guarantee instantaneous load times, fluid dark-mode micro-animations, and seamless local serving.
+
+---
+
 ## 📄 Key Takeaways for Leadership
 
 - **The Executive Memo:** Detailed root-cause explanations and a 30-60-90 day engineering execution plan can be found in [`RECOMMENDATION.md`](RECOMMENDATION.md).
 - **The Dashboard:** Live interactive charts, tab comparisons, and upvoted reviews can be explored in the [`dashboard/`](dashboard/) application.
 - **Repeatability:** Every time a new version is released, running `python run_pipeline.py` immediately tracks whether user sentiment improved or regressed.
+

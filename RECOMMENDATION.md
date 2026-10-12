@@ -186,5 +186,11 @@ Run the full pipeline at any time with:
 python run_pipeline.py
 ```
 
+### Engineering Methodology & Tooling Note
+This intelligence framework was designed, stress-tested, and built using a collaborative engineering workflow:
+- **Claude:** Acted as a strategic reasoning partner — used to test and challenge our initial ideas, evaluate the commute journey taxonomy against real enterprise constraints, and verify the mathematical validity of the Weighted Rating Drag model.
+- **Antigravity:** Used as the primary implementation and debugging copilot — structuring the modular Python pipeline, separating the frontend into a clean HTML/CSS/JS architecture, diagnosing and resolving CSS Grid layout and Chart.js rendering edge-cases, and managing git deployments.
+- **Google Gemini API (`gemini-2.5-flash-lite` / `gemini-2.0-flash`):** Powered fast, structured semantic classification across the commute journey stages with high accuracy and generous rate limits.
+
 ---
 *MoveInSync Review Intelligence System · Forward Deployed Engineering*
