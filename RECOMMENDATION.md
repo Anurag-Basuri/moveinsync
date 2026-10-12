@@ -1,0 +1,137 @@
+# MoveInSync Play Store Rating Improvement — Recommendation Memo
+
+**Date:** 13 October 2026
+**Scope:** Employee App (`com.moveinsync.ets`) + Driver App (`com.moveinsync.driver.dco`)
+**Data:** 60 public Play Store reviews analyzed
+
+---
+
+## Executive Summary
+
+MoveInSync's **Employee App** holds a **3.79★** rating from 53 reviews — decent but
+below the 4.7+ threshold that signals a well-loved product. The **Driver App** sits at **2.71★**
+with only 7 written reviews and 46 ratings — critically low and at risk of Play Store
+visibility penalties.
+
+The rating is being dragged down by a concentration of specific, fixable issues — primarily at
+the most critical moments of the commute journey.
+
+**If the top 3 issues were fully resolved, the data suggests the employee app rating could improve
+by ~0.45 points** (from 3.79 toward ~4.2).
+
+---
+
+## The Data
+
+- **53** employee app reviews (103% coverage of all Play Store written reviews)
+- **7** driver app reviews (100% coverage)
+- Each review tagged by **journey stage**, **issue type**, and **sentiment** using Gemini AI
+
+| App | Store Rating | Written Reviews | Total Ratings |
+|-----|-------------|-----------------|---------------|
+| Employee (MoveInSync) | 3.79★ | 53 | 114,879 |
+| Driver (MoveInSync - Driver Partner) | 2.71★ | 7 | 46 |
+
+---
+
+## What's Dragging Ratings Down
+
+### Prioritized Issue Ranking — Employee App
+
+| Rank | Issue | App | Reviews | Avg ★ | Rating Drag | Share |
+|------|-------|-----|---------|-------|-------------|-------|
+| 1 | Update Regressions | Employee App | 4 | 1.0★ | 0.211 | 7.5% |
+| 2 | UI/UX Issues | Employee App | 3 | 1.33★ | 0.139 | 5.7% |
+| 3 | Booking Failures | Employee App | 2 | 1.0★ | 0.105 | 3.8% |
+| 4 | Inaccurate Tracking & ETA | Employee App | 3 | 2.0★ | 0.101 | 5.7% |
+| 5 | Login & Authentication Failures | Employee App | 1 | 1.0★ | 0.053 | 1.9% |
+| 6 | Notification Problems | Employee App | 1 | 1.0★ | 0.053 | 1.9% |
+
+### By Journey Stage — Employee App
+
+| Journey Stage | Reviews | Avg Rating | % Negative |
+|---------------|---------|------------|------------|
+| Booking | 2 | 1.0★ | 100.0% |
+| Safety | 3 | 2.67★ | 66.7% |
+| Pickup & Tracking | 5 | 2.4★ | 60.0% |
+| Issue Resolution | 2 | 3.0★ | 50.0% |
+| App General | 38 | 4.16★ | 21.1% |
+| Ride Experience | 2 | 5.0★ | 0.0% |
+| Assignment | 1 | 5.0★ | 0.0% |
+
+---
+
+## What to Fix and What to Do First
+
+### 🔴 Priority 1: Update Regressions
+- **4 reviews**, average 1.0★, weighted drag: 0.211
+- **Why it matters:** Updates that break working features trigger sudden spikes in 1★ reviews.
+
+### 🟠 Priority 2: UI/UX Issues
+- **3 reviews**, average 1.33★, weighted drag: 0.139
+- **Why it matters:** Confusing interface flows build up friction over daily commute use.
+
+### 🟡 Priority 3: Booking Failures
+- **2 reviews**, average 1.0★, weighted drag: 0.105
+- **Why it matters:** Self-booking is the primary flow. When it fails, the entire value proposition collapses for the employee.
+
+
+### Quick Win: Developer Responses
+
+Currently only **1.9%** of reviews get a developer response.
+Responding to negative reviews can lead users to update their ratings. Prioritize all 1-2★
+reviews within 48 hours, starting with the most-upvoted ones.
+
+### Driver App: Limited Data, Clear Signal
+
+With only 7 written reviews, the driver app needs a different approach: conduct a
+small driver interview study (5-10 drivers) to surface issues that written reviews don't capture.
+
+---
+
+## How This Was Built
+
+### Tools
+1. **google-play-scraper** (Python) — collected all public reviews
+2. **Gemini 2.0 Flash** (API) — tagged each review by journey stage, issue type, sentiment
+3. **Custom analysis pipeline** — quantified rating impact, trends, rankings
+4. **Interactive dashboard** — visual evidence (`dashboard/index.html`)
+
+### Assumptions
+1. Public reviews represent the user population (with negativity bias acknowledged)
+2. Journey stages from the case study are the right analytical lens
+3. Weighted drag is the right ranking metric (severity × volume)
+4. LLM tagging accuracy is ~85-90%; volume compensates for noise
+
+### Repeatability — Not a One-Time Report
+
+```
+python run_pipeline.py
+```
+
+This fetches new reviews, tags only what's new, regenerates all analysis, and opens the dashboard.
+
+---
+
+## File Structure
+
+```
+moveinsync/
+├── .env                         # Your Gemini API key
+├── run_pipeline.py              # One-command entry point
+├── pipeline/
+│   ├── config.py                # Shared configuration
+│   ├── collect_reviews.py       # Step 1: Scrape Play Store
+│   ├── tag_reviews.py           # Step 2: LLM tagging
+│   ├── analyze_reviews.py       # Step 3: Quantify & rank
+│   └── generate_memo.py         # Step 4: This memo
+├── dashboard/
+│   ├── index.html               # Interactive dashboard
+│   ├── styles.css               # Dashboard styles
+│   └── app.js                   # Dashboard logic
+└── data/                        # All generated data
+```
+
+---
+
+*Generated by the MoveInSync Play Store Intelligence Pipeline*
