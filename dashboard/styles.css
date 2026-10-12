@@ -168,9 +168,13 @@ body::before {
 /* Score cards */
 .score-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 16px;
     margin-bottom: 32px;
+}
+
+.score-cards.score-cards-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .score-card {
@@ -182,6 +186,7 @@ body::before {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    min-width: 0;
 }
 
 .score-card::before {
@@ -229,7 +234,7 @@ body::before {
 /* Chart cards */
 .charts-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 24px;
     margin-bottom: 32px;
 }
@@ -240,6 +245,7 @@ body::before {
     border-radius: var(--radius);
     padding: 28px;
     transition: all 0.3s ease;
+    min-width: 0;
 }
 
 .chart-card:hover { border-color: rgba(99, 102, 241, 0.15); }
@@ -257,9 +263,22 @@ body::before {
     margin-bottom: 20px;
 }
 
-.chart-wrapper { position: relative; width: 100%; }
-.chart-wrapper canvas { max-height: 320px; }
+.chart-wrapper {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    height: 300px;
+}
 
+.chart-card.full-width .chart-wrapper {
+    height: 330px;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
 
 /* Recommendations table */
 .recs-section { margin-bottom: 48px; }
@@ -496,14 +515,23 @@ body::before {
 
 
 /* Responsive */
+@media (max-width: 1100px) {
+    .score-cards {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+    .score-cards.score-cards-4 {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
 @media (max-width: 900px) {
     .charts-grid   { grid-template-columns: 1fr; }
     .hero h1       { font-size: 2rem; }
-    .score-cards   { grid-template-columns: repeat(2, 1fr); }
+    .score-cards, .score-cards.score-cards-4 { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 600px) {
-    .score-cards   { grid-template-columns: 1fr; }
+    .score-cards, .score-cards.score-cards-4 { grid-template-columns: 1fr; }
     .hero h1       { font-size: 1.6rem; }
     .reviews-grid  { grid-template-columns: 1fr; }
 }

@@ -1,6 +1,14 @@
 // State
 let DATA = null;
 let currentApp = "employee";
+let activeCharts = [];
+
+function destroyActiveCharts() {
+    activeCharts.forEach(c => {
+        try { c.destroy(); } catch (_) {}
+    });
+    activeCharts = [];
+}
 
 // Label maps
 const ISSUE_LABELS = {
@@ -94,6 +102,7 @@ function switchApp(app) {
 window.switchApp = switchApp;
 
 function render() {
+    destroyActiveCharts();
     const appData = getAppData();
     const container = document.getElementById("app");
 
@@ -286,7 +295,7 @@ function renderCombinedScoreCards() {
     const emp = DATA?.apps?.employee;
     const drv = DATA?.apps?.driver;
     return `
-    <div class="score-cards fade-in stagger-2">
+    <div class="score-cards score-cards-4 fade-in stagger-2">
         <div class="score-card">
             <div class="label">Employee App Rating</div>
             <div class="value" style="color:var(--accent-emerald)">${emp?.overall_avg_rating || "—"}</div>
@@ -345,13 +354,15 @@ function renderRecommendations(recs, appLabel) {
     <div class="recs-section fade-in stagger-4">
         <h2>🎯 Prioritized Recommendations</h2>
         <p class="recs-subtitle">Ranked by weighted rating drag — fix the top items first to maximize rating improvement for ${appLabel}</p>
-        <table class="rec-table">
-            <thead><tr>
-                <th>Rank</th><th>Issue</th><th>App</th>
-                <th>Reviews</th><th>Avg ★</th><th>Rating Drag</th><th>Share</th>
-            </tr></thead>
-            <tbody>${rows}</tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="rec-table">
+                <thead><tr>
+                    <th>Rank</th><th>Issue</th><th>App</th>
+                    <th>Reviews</th><th>Avg ★</th><th>Rating Drag</th><th>Share</th>
+                </tr></thead>
+                <tbody>${rows}</tbody>
+            </table>
+        </div>
     </div>`;
 }
 
@@ -389,6 +400,10 @@ function renderTopReviews(reviews) {
 // Dev reply stats
 function renderDevReplyStats(stats) {
     if (!stats) return "";
+    const repliedAvgText = stats.replied_count > 0 
+        ? `${stats.replied_avg_rating}★ vs ${stats.unreplied_avg_rating}★`
+        : `None (vs ${stats.unreplied_avg_rating}★)`;
+
     return `
     <div class="chart-card fade-in stagger-5" style="margin-bottom:32px">
         <h3>Developer Response Analysis</h3>
@@ -407,7 +422,7 @@ function renderDevReplyStats(stats) {
                 <div class="stat-label">No Reply</div>
             </div>
             <div class="dev-stat">
-                <div class="stat-value" style="color:var(--accent-amber)">${stats.replied_avg_rating}★ vs ${stats.unreplied_avg_rating}★</div>
+                <div class="stat-value" style="color:var(--accent-amber)">${repliedAvgText}</div>
                 <div class="stat-label">Replied vs Unreplied Avg</div>
             </div>
         </div>
@@ -452,11 +467,13 @@ function initCombinedCharts() {
 }
 
 function chartTrend(data) {
+    const el = document.getElementById("trendChart");
+    if (!el) return;
     const months  = Object.keys(data.monthly_trends || {});
     const ratings = months.map(m => data.monthly_trends[m].avg_rating);
     const counts  = months.map(m => data.monthly_trends[m].count);
 
-    new Chart(document.getElementById("trendChart"), {
+    const c = new Chart(el, {
         type: "line",
         data: {
             labels: months,
@@ -474,14 +491,17 @@ function chartTrend(data) {
             },
         },
     });
+    activeCharts.push(c);
 }
 
 function chartStars(data) {
+    const el = document.getElementById("starChart");
+    if (!el) return;
     const dist = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
     Object.values(data.monthly_trends || {}).forEach(m =>
         Object.entries(m.star_dist || {}).forEach(([s, c]) => { dist[s] = (dist[s] || 0) + c; })
     );
-    new Chart(document.getElementById("starChart"), {
+    const c = new Chart(el, {
         type: "doughnut",
         data: {
             labels: ["1★", "2★", "3★", "4★", "5★"],
@@ -489,16 +509,19 @@ function chartStars(data) {
         },
         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: "right", labels: { color: "#94a3b8", font: { family: "Inter", size: 12 }, padding: 16 } } }, cutout: "65%" },
     });
+    activeCharts.push(c);
 }
 
 function chartJourney(data) {
+    const el = document.getElementById("journeyChart");
+    if (!el) return;
     const stages  = Object.keys(data.journey_breakdown || {}).filter(s => s !== "other");
     const counts  = stages.map(s => data.journey_breakdown[s].count);
     const avgRat  = stages.map(s => data.journey_breakdown[s].avg_rating);
     const labels  = stages.map(s => STAGE_LABELS[s] || s);
     const palette = Object.values(COLORS);
 
-    new Chart(document.getElementById("journeyChart"), {
+    const c = new Chart(el, {
         type: "bar",
         data: {
             labels,
@@ -516,15 +539,18 @@ function chartJourney(data) {
             },
         },
     });
+    activeCharts.push(c);
 }
 
 function chartImpact(data) {
+    const el = document.getElementById("impactChart");
+    if (!el) return;
     const issues = Object.entries(data.rating_impact_by_issue || {})
-        .filter(([k, v]) => k !== "positive_feedback" && k !== "other" && v.weighted_drag > 0)
+        .filter(([k, v]) => k !== "positive_feedback" && v.weighted_drag > 0)
         .sort((a, b) => b[1].weighted_drag - a[1].weighted_drag)
         .slice(0, 10);
 
-    new Chart(document.getElementById("impactChart"), {
+    const c = new Chart(el, {
         type: "bar",
         data: {
             labels: issues.map(([k]) => (ISSUE_LABELS[k] || k).replace(/^.+? /, "")),
@@ -532,9 +558,12 @@ function chartImpact(data) {
         },
         options: { ...CHART_DEFAULTS, indexAxis: "y" },
     });
+    activeCharts.push(c);
 }
 
 function chartIssueTime(data) {
+    const el = document.getElementById("issueTimeChart");
+    if (!el) return;
     const months = Object.keys(data.issue_trends || {});
     const totals = {};
     Object.values(data.issue_trends || {}).forEach(iss =>
@@ -545,7 +574,7 @@ function chartIssueTime(data) {
     const top = Object.entries(totals).sort((a, b) => b[1] - a[1]).slice(0, 6).map(([k]) => k);
     const palette = Object.values(COLORS);
 
-    new Chart(document.getElementById("issueTimeChart"), {
+    const c = new Chart(el, {
         type: "line",
         data: {
             labels: months,
@@ -561,14 +590,17 @@ function chartIssueTime(data) {
             plugins: { legend: { position: "bottom", labels: { color: "#94a3b8", font: { family: "Inter", size: 10 }, padding: 12, usePointStyle: true } } },
         },
     });
+    activeCharts.push(c);
 }
 
 function chartCompare() {
+    const el = document.getElementById("compareChart");
+    if (!el) return;
     const empT = DATA?.apps?.employee?.monthly_trends || {};
     const drvT = DATA?.apps?.driver?.monthly_trends   || {};
     const months = [...new Set([...Object.keys(empT), ...Object.keys(drvT)])].sort();
 
-    new Chart(document.getElementById("compareChart"), {
+    const c = new Chart(el, {
         type: "line",
         data: {
             labels: months,
@@ -579,14 +611,17 @@ function chartCompare() {
         },
         options: { ...CHART_DEFAULTS, scales: { ...CHART_DEFAULTS.scales, y: { ...CHART_DEFAULTS.scales.y, min: 1, max: 5 } } },
     });
+    activeCharts.push(c);
 }
 
 function chartCompareIssues() {
+    const el = document.getElementById("compareIssueChart");
+    if (!el) return;
     const empI = DATA?.apps?.employee?.rating_impact_by_issue || {};
     const drvI = DATA?.apps?.driver?.rating_impact_by_issue   || {};
-    const all  = [...new Set([...Object.keys(empI), ...Object.keys(drvI)])].filter(k => k !== "positive_feedback" && k !== "other");
+    const all  = [...new Set([...Object.keys(empI), ...Object.keys(drvI)])].filter(k => k !== "positive_feedback");
 
-    new Chart(document.getElementById("compareIssueChart"), {
+    const c = new Chart(el, {
         type: "bar",
         data: {
             labels: all.map(k => (ISSUE_LABELS[k] || k).replace(/^.+? /, "")),
@@ -597,6 +632,7 @@ function chartCompareIssues() {
         },
         options: { ...CHART_DEFAULTS, indexAxis: "y" },
     });
+    activeCharts.push(c);
 }
 
 
