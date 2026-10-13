@@ -74,8 +74,21 @@ def journey_breakdown(rows):
     return results
 
 
+# Load all raw scraped reviews for an app to get complete historical volume and ratings
+def load_raw_reviews(app_id):
+    path = DATA / f"reviews_{app_id}.csv"
+    if not path.exists():
+        return []
+    with path.open(encoding="utf-8", newline="") as f:
+        rows = list(csv.DictReader(f))
+    for r in rows:
+        r["rating"] = int(r["rating"]) if r.get("rating") else 0
+        r["thumbs_up"] = int(r["thumbs_up"]) if r.get("thumbs_up") else 0
+    return rows
+
+
 # Aggregate monthly rating averages and star counts
-def time_trends(rows):
+def time_trends(rows, min_month=None):
     by_month = defaultdict(list)
     for r in rows:
         d = r.get("review_date", "")
@@ -83,7 +96,10 @@ def time_trends(rows):
             continue
         try:
             dt = datetime.fromisoformat(d.replace("Z", "+00:00"))
-            by_month[dt.strftime("%Y-%m")].append(r["rating"])
+            m = dt.strftime("%Y-%m")
+            if min_month and m < min_month:
+                continue
+            by_month[m].append(r["rating"])
         except (ValueError, AttributeError):
             continue
 
@@ -187,16 +203,25 @@ def prioritized_recommendations(impact_data, app_label):
 
 
 # Run all analysis cuts for a single app
-def analyze_app(rows, app_id, app_label):
+def analyze_app(rows, app_id, app_label, raw_rows=None):
     impact, overall_avg = rating_impact(rows)
+    # Use full raw historical reviews for volume and rating trends over time
+    if raw_rows:
+        monthly = time_trends(raw_rows, min_month="2024-01") if len(raw_rows) > 500 else time_trends(raw_rows)
+        total_raw = len(raw_rows)
+    else:
+        monthly = time_trends(rows)
+        total_raw = len(rows)
+
     return {
         "app_id": app_id,
         "app_label": app_label,
         "total_reviews": len(rows),
+        "total_raw_reviews": total_raw,
         "overall_avg_rating": round(overall_avg, 2),
         "rating_impact_by_issue": impact,
         "journey_breakdown": journey_breakdown(rows),
-        "monthly_trends": time_trends(rows),
+        "monthly_trends": monthly,
         "issue_trends": issue_trends(rows),
         "top_reviews": top_reviews(rows),
         "dev_reply_stats": dev_reply_analysis(rows),
@@ -213,20 +238,24 @@ def main():
     employee_rows = [r for r in tagged if "driver" not in r.get("app_id", "").lower()]
     driver_rows = [r for r in tagged if "driver" in r.get("app_id", "").lower()]
 
+    raw_employee = load_raw_reviews("com.moveinsync.ets")
+    raw_driver = load_raw_reviews("com.moveinsync.driver.dco")
+
     output = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "total_reviews": len(tagged),
+        "total_raw_reviews": len(raw_employee) + len(raw_driver),
         "apps": {},
         "snapshots": snapshots,
     }
 
     if employee_rows:
         output["apps"]["employee"] = analyze_app(
-            employee_rows, "com.moveinsync.ets", "Employee App"
+            employee_rows, "com.moveinsync.ets", "Employee App", raw_rows=raw_employee
         )
     if driver_rows:
         output["apps"]["driver"] = analyze_app(
-            driver_rows, "com.moveinsync.driver.dco", "Driver App"
+            driver_rows, "com.moveinsync.driver.dco", "Driver App", raw_rows=raw_driver
         )
 
     all_recs = []

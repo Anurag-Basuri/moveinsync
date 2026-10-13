@@ -26,6 +26,7 @@ const ISSUE_LABELS = {
     update_regression:  "📱 Update Regression",
     feature_request:    "💡 Feature Request",
     billing_payment:    "💳 Billing/Payment",
+    driver_onboarding:  "📋 Driver Onboarding / Docs",
     positive_feedback:  "👍 Positive",
     other:              "📝 Other",
 };
@@ -473,21 +474,68 @@ function chartTrend(data) {
     const ratings = months.map(m => data.monthly_trends[m].avg_rating);
     const counts  = months.map(m => data.monthly_trends[m].count);
 
+    const isDense = months.length > 20;
     const c = new Chart(el, {
         type: "line",
         data: {
             labels: months,
             datasets: [
-                { label: "Avg Rating", data: ratings, borderColor: COLORS.indigo, backgroundColor: "rgba(99,102,241,0.1)", fill: true, tension: 0.4, pointRadius: 3, yAxisID: "y" },
-                { label: "Review Count", data: counts, borderColor: COLORS.amber, fill: false, tension: 0.4, pointRadius: 2, borderDash: [5, 5], yAxisID: "y1" },
+                { 
+                    label: "Avg Rating (★)", 
+                    data: ratings, 
+                    borderColor: COLORS.indigo, 
+                    backgroundColor: "rgba(99,102,241,0.12)", 
+                    fill: true, 
+                    tension: 0.35, 
+                    pointRadius: isDense ? 2 : 4, 
+                    pointHoverRadius: 6,
+                    yAxisID: "y" 
+                },
+                { 
+                    label: "Review Volume", 
+                    data: counts, 
+                    borderColor: COLORS.amber, 
+                    fill: false, 
+                    tension: 0.35, 
+                    pointRadius: isDense ? 2 : 4, 
+                    pointHoverRadius: 6,
+                    borderDash: [5, 5], 
+                    yAxisID: "y1" 
+                },
             ],
         },
         options: {
             ...CHART_DEFAULTS,
+            interaction: { mode: "index", intersect: false },
             scales: {
                 ...CHART_DEFAULTS.scales,
-                y:  { ...CHART_DEFAULTS.scales.y, min: 1, max: 5, position: "left" },
-                y1: { ...CHART_DEFAULTS.scales.y, position: "right", grid: { drawOnChartArea: false } },
+                x: {
+                    ...CHART_DEFAULTS.scales.x,
+                    ticks: { ...CHART_DEFAULTS.scales.x.ticks, maxTicksLimit: 12 },
+                },
+                y: {
+                    ...CHART_DEFAULTS.scales.y,
+                    min: 1,
+                    max: 5,
+                    position: "left",
+                    title: { display: true, text: "Avg Rating", color: "#64748b", font: { size: 10 } }
+                },
+                y1: {
+                    ...CHART_DEFAULTS.scales.y,
+                    position: "right",
+                    grid: { drawOnChartArea: false },
+                    title: { display: true, text: "Reviews / Month", color: "#64748b", font: { size: 10 } }
+                },
+            },
+            plugins: {
+                ...CHART_DEFAULTS.plugins,
+                tooltip: {
+                    callbacks: {
+                        label: ctx => ctx.datasetIndex === 0
+                            ? ` ⭐ Rating: ${ctx.parsed.y.toFixed(2)}`
+                            : ` 📈 Volume: ${ctx.parsed.y.toLocaleString()} reviews`,
+                    },
+                },
             },
         },
     });
@@ -571,9 +619,31 @@ function chartIssueTime(data) {
             if (k !== "positive_feedback" && k !== "other") totals[k] = (totals[k] || 0) + c;
         })
     );
-    const top = Object.entries(totals).sort((a, b) => b[1] - a[1]).slice(0, 6).map(([k]) => k);
-    const palette = Object.values(COLORS);
+    let top = Object.entries(totals).sort((a, b) => b[1] - a[1]).slice(0, 6).map(([k]) => k);
+    
+    // Fallback: If no non-positive/non-other issues found (e.g. Driver App with only onboarding or other)
+    if (top.length === 0) {
+        const allTotals = {};
+        Object.values(data.issue_trends || {}).forEach(iss =>
+            Object.entries(iss).forEach(([k, c]) => {
+                if (k !== "positive_feedback") allTotals[k] = (allTotals[k] || 0) + c;
+            })
+        );
+        top = Object.entries(allTotals).sort((a, b) => b[1] - a[1]).slice(0, 4).map(([k]) => k);
+    }
 
+    if (top.length === 0 || months.length === 0) {
+        const wrapper = el.closest(".chart-wrapper");
+        if (wrapper) {
+            wrapper.innerHTML = `
+                <div style="display:flex;align-items:center;justify-content:center;height:240px;color:var(--text-secondary);font-size:0.9rem;">
+                    📊 No recurring negative issue spikes recorded across the sampled months.
+                </div>`;
+        }
+        return;
+    }
+
+    const palette = Object.values(COLORS);
     const c = new Chart(el, {
         type: "line",
         data: {
@@ -582,12 +652,41 @@ function chartIssueTime(data) {
                 label: (ISSUE_LABELS[iss] || iss).replace(/^.+? /, ""),
                 data: months.map(m => (data.issue_trends[m] || {})[iss] || 0),
                 borderColor: palette[i % palette.length],
-                fill: false, tension: 0.4, pointRadius: 2,
+                backgroundColor: palette[i % palette.length],
+                fill: false,
+                tension: 0.35,
+                pointRadius: months.length <= 6 ? 4 : 3,
+                pointHoverRadius: 6,
             })),
         },
         options: {
             ...CHART_DEFAULTS,
-            plugins: { legend: { position: "bottom", labels: { color: "#94a3b8", font: { family: "Inter", size: 10 }, padding: 12, usePointStyle: true } } },
+            interaction: { mode: "index", intersect: false },
+            scales: {
+                ...CHART_DEFAULTS.scales,
+                x: {
+                    ...CHART_DEFAULTS.scales.x,
+                    ticks: { ...CHART_DEFAULTS.scales.x.ticks, maxTicksLimit: 12 },
+                },
+                y: {
+                    ...CHART_DEFAULTS.scales.y,
+                    beginAtZero: true,
+                    ticks: { ...CHART_DEFAULTS.scales.y.ticks, stepSize: 1 },
+                    title: { display: true, text: "Tagged Mentions", color: "#64748b", font: { size: 10 } }
+                },
+            },
+            plugins: {
+                ...CHART_DEFAULTS.plugins,
+                legend: { 
+                    position: "bottom", 
+                    labels: { color: "#94a3b8", font: { family: "Inter", size: 10 }, padding: 12, usePointStyle: true } 
+                },
+                tooltip: {
+                    callbacks: {
+                        label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y} mention${ctx.parsed.y === 1 ? "" : "s"}`,
+                    },
+                },
+            },
         },
     });
     activeCharts.push(c);
@@ -598,18 +697,28 @@ function chartCompare() {
     if (!el) return;
     const empT = DATA?.apps?.employee?.monthly_trends || {};
     const drvT = DATA?.apps?.driver?.monthly_trends   || {};
-    const months = [...new Set([...Object.keys(empT), ...Object.keys(drvT)])].sort();
+    // Compare in the active range where Driver App has data (from 2025 onwards)
+    const drvMonths = Object.keys(drvT);
+    const minMonth = drvMonths.length > 0 ? drvMonths.sort()[0] : "2025-01";
+    const months = [...new Set([...Object.keys(empT), ...Object.keys(drvT)])].filter(m => m >= minMonth).sort();
 
     const c = new Chart(el, {
         type: "line",
         data: {
             labels: months,
             datasets: [
-                { label: "Employee App", data: months.map(m => empT[m]?.avg_rating || null), borderColor: COLORS.emerald, backgroundColor: "rgba(52,211,153,0.08)", fill: true, tension: 0.4, spanGaps: true },
-                { label: "Driver App",   data: months.map(m => drvT[m]?.avg_rating || null), borderColor: COLORS.orange,  backgroundColor: "rgba(251,146,60,0.08)",  fill: true, tension: 0.4, spanGaps: true },
+                { label: "Employee App", data: months.map(m => empT[m]?.avg_rating || null), borderColor: COLORS.emerald, backgroundColor: "rgba(52,211,153,0.08)", fill: true, tension: 0.4, spanGaps: true, pointRadius: 3 },
+                { label: "Driver App",   data: months.map(m => drvT[m]?.avg_rating || null), borderColor: COLORS.orange,  backgroundColor: "rgba(251,146,60,0.08)",  fill: true, tension: 0.4, spanGaps: true, pointRadius: 4 },
             ],
         },
-        options: { ...CHART_DEFAULTS, scales: { ...CHART_DEFAULTS.scales, y: { ...CHART_DEFAULTS.scales.y, min: 1, max: 5 } } },
+        options: { 
+            ...CHART_DEFAULTS, 
+            scales: { 
+                ...CHART_DEFAULTS.scales, 
+                x: { ...CHART_DEFAULTS.scales.x, ticks: { ...CHART_DEFAULTS.scales.x.ticks, maxTicksLimit: 12 } },
+                y: { ...CHART_DEFAULTS.scales.y, min: 1, max: 5 } 
+            } 
+        },
     });
     activeCharts.push(c);
 }

@@ -4,13 +4,13 @@
 **Author:** Forward Deployed Engineering  
 **Date:** 13 October 2026  
 **Scope:** MoveInSync Employee App (`com.moveinsync.ets`) & Driver Partner App (`com.moveinsync.driver.dco`)  
-**Data Evaluated:** 60 Play Store reviews mapped against employee commute journeys  
+**Data Evaluated:** 127 Play Store reviews mapped against employee commute journeys  
 
 ---
 
 ## 1. Executive Summary
 
-MoveInSync’s **Employee App** currently sits at **3.79★** on the Google Play Store (across 53 analyzed written reviews and over 114,000 lifetime ratings). While 3.8★ is acceptable for basic enterprise utilities, it falls short of the **4.5★+ benchmark** expected of mission-critical corporate infrastructure.
+MoveInSync’s **Employee App** currently sits at **2.97★** on the Google Play Store (across 120 analyzed written reviews and over 114,000 lifetime ratings). While 3.8★ is acceptable for basic enterprise utilities, it falls short of the **4.5★+ benchmark** expected of mission-critical corporate infrastructure.
 
 More critically, the **Driver Partner App** sits at **2.71★**, a dangerous rating that risks algorithmic de-prioritization in the Play Store, increases driver onboarding friction, and directly hurts fleet partner trust.
 
@@ -21,7 +21,7 @@ This rating drop is not caused by general dislike of the product. In fact, satis
 3. **Self-booking validation failures** right before corporate cutoff deadlines.
 
 ### The Opportunity
-By systematically eliminating the top 3 root-cause bottlenecks identified in this analysis, the model projects an immediate rating recovery of **+0.45 points**, lifting the Employee App from **3.79★ toward ~4.25★**.
+By systematically eliminating the top 3 root-cause bottlenecks identified in this analysis, the model projects an immediate rating recovery of **+0.31 points**, lifting the Employee App from **2.97★ toward ~3.28★**.
 
 ---
 
@@ -29,7 +29,7 @@ By systematically eliminating the top 3 root-cause bottlenecks identified in thi
 
 | Application | Play Store Rating | Analyzed Written Reviews | Total Lifetime Store Ratings | Health Status |
 |:---|:---:|:---:|:---:|:---|
-| **Employee App (`com.moveinsync.ets`)** | **3.79★** | 53 | 114,879+ | ⚠️ At risk of dissatisfaction spikes |
+| **Employee App (`com.moveinsync.ets`)** | **2.97★** | 120 | 114,879+ | ⚠️ At risk of dissatisfaction spikes |
 | **Driver Partner (`com.moveinsync.driver.dco`)** | **2.71★** | 7 | 46 | 🚨 Severe rating penalty risk |
 
 > **Key Context for Leadership:** In corporate transport, employees don't review the app when their ride is smooth. They review it when they are standing on the street corner at 8:00 AM unable to board their cab. Fixing operational friction directly converts vocal critics into silent or positive advocates.
@@ -45,12 +45,14 @@ $$\text{Weighted Drag} = \frac{\text{Issue Review Count}}{\text{Total Reviews}} 
 
 | Rank | Identified Issue | Impacted App | Reviews | Avg Rating | Weighted Drag | Volume Share |
 |:---:|:---|:---|:---:|:---:|:---:|:---:|
-| **1** | Update Regressions & Broken Builds | `Employee App` | 4 | 1.0★ | **0.211** | 7.5% |
-| **2** | UI/UX Friction & Extra Taps | `Employee App` | 3 | 1.33★ | **0.139** | 5.7% |
-| **3** | Booking Failures | `Employee App` | 2 | 1.0★ | **0.105** | 3.8% |
-| **4** | Inaccurate Tracking & ETA | `Employee App` | 3 | 2.0★ | **0.101** | 5.7% |
-| **5** | Login & Authentication Failures | `Employee App` | 1 | 1.0★ | **0.053** | 1.9% |
-| **6** | Notification Problems | `Employee App` | 1 | 1.0★ | **0.053** | 1.9% |
+| **2** | UI/UX Friction & Extra Taps | `Employee App` | 23 | 1.96★ | **0.194** | 19.2% |
+| **3** | App Crashes & Freezes | `Employee App` | 13 | 2.15★ | **0.088** | 10.8% |
+| **4** | Login & Authentication Failures | `Employee App` | 5 | 2.4★ | **0.024** | 4.2% |
+| **5** | Booking Failures | `Employee App` | 3 | 2.0★ | **0.024** | 2.5% |
+| **6** | Update Regressions & Broken Builds | `Employee App` | 2 | 1.5★ | **0.024** | 1.7% |
+| **7** | Safety Concerns | `Employee App` | 3 | 2.33★ | **0.016** | 2.5% |
+| **8** | Wrong Cab/Route Assignment | `Employee App` | 1 | 1.0★ | **0.016** | 0.8% |
+| **9** | Notification Problems | `Employee App` | 1 | 2.0★ | **0.008** | 0.8% |
 
 ---
 
@@ -60,13 +62,15 @@ To bridge customer pain with engineering action, every review was classified aga
 
 | Commute Stage | Total Reviews | Avg Rating | % Negative Reviews | Severity Context |
 |:---|:---:|:---:|:---:|:---|
-| **Self-Booking** | 2 | 1.0★ | 100.0% | 🔴 Acute pain point |
-| **In-Ride Safety & Boarding** | 3 | 2.67★ | 66.7% | 🟠 High friction |
-| **Pickup & Live Tracking** | 5 | 2.4★ | 60.0% | 🟠 High friction |
-| **Issue Resolution & Support** | 2 | 3.0★ | 50.0% | 🟠 High friction |
-| **App General & Setup** | 38 | 4.16★ | 21.1% | 🟡 Occasional complaints |
-| **Ride Experience** | 2 | 5.0★ | 0.0% | 🟢 Generally positive |
-| **Cab Assignment** | 1 | 5.0★ | 0.0% | 🟢 Generally positive |
+| **Self-Booking** | 9 | 2.22★ | 77.8% | 🔴 Acute pain point |
+| **In-Ride Safety & Boarding** | 8 | 2.75★ | 75.0% | 🔴 Acute pain point |
+| **Issue Resolution & Support** | 3 | 2.67★ | 66.7% | 🟠 High friction |
+| **App General & Setup** | 65 | 3.12★ | 46.2% | 🟠 High friction |
+| **Other** | 7 | 2.14★ | 42.9% | 🟠 High friction |
+| **Pickup & Live Tracking** | 19 | 2.95★ | 42.1% | 🟠 High friction |
+| **Ride Experience** | 7 | 3.57★ | 28.6% | 🟡 Occasional complaints |
+| **Cab Assignment** | 1 | 3.0★ | 0.0% | 🟢 Generally positive |
+| **Dropoff & Exit** | 1 | 4.0★ | 0.0% | 🟢 Generally positive |
 
 ### What the Journey Breakdown Tells Us:
 1. **Self-Booking (100% Negative):** Self-booking is MoveInSync's primary flow. When it works, it is invisible. When a shift deadline closes unexpectedly or a route shows 'unavailable', commuters panic and immediately leave 1-star reviews.
@@ -95,27 +99,27 @@ These are real quotes extracted from recent MoveInSync Play Store reviews that i
 
 ## 6. Prioritized Engineering & Product Action Plan
 
-### 🔴 Priority 1: Update Regressions & Broken Builds
-- **Observed Volume:** 4 reviews | **Average Score:** 1.0★ | **Rating Drag:** 0.211 (7.5% share)
-- **Why this hurts users:** Updates that break existing functionality trigger immediate 1-star reviews. When an update crashes on launch, commuters cannot see their cab, leading to missed shifts and angry calls to client transport desks.
+### 🔴 Priority 1: UI/UX Friction & Extra Taps
+- **Observed Volume:** 23 reviews | **Average Score:** 1.96★ | **Rating Drag:** 0.194 (19.2% share)
+- **Why this hurts users:** High-friction interactions create daily annoyance. The most prominent example is inserting a mandatory seatbelt dialog directly in front of the boarding OTP when an employee is rushing to get into their cab.
 - **Recommended Action:**
   - Institute staged rollouts on the Play Store (1% -> 5% -> 20% -> 100%) with automated crash-rate thresholds.
   - Add automated Android cold-start smoke tests across common mid-tier devices (Samsung, Xiaomi, Vivo) before approving production releases.
   - Preserve persistent local session caching so updates do not invalidate existing auth tokens or corrupt SQLite local app state.
 
 
-### 🟠 Priority 2: UI/UX Friction & Extra Taps
-- **Observed Volume:** 3 reviews | **Average Score:** 1.33★ | **Rating Drag:** 0.139 (5.7% share)
-- **Why this hurts users:** High-friction interactions create daily annoyance. The most prominent example is inserting a mandatory seatbelt dialog directly in front of the boarding OTP when an employee is rushing to get into their cab.
+### 🟠 Priority 2: App Crashes & Freezes
+- **Observed Volume:** 13 reviews | **Average Score:** 2.15★ | **Rating Drag:** 0.088 (10.8% share)
+- **Why this hurts users:** A frozen app right when verifying an OTP or checking the vehicle number causes direct boarding chaos.
 - **Recommended Action:**
   - Remove the interstitial seatbelt popup prior to OTP display. Show safety advisories passively inside the vehicle card or as an in-ride header banner instead.
   - Display the Boarding OTP directly on the persistent pickup card or inside an Android Quick Notification Widget so users never have to tap through menus to find it.
   - Ensure OTP retrieval is cached locally so low cellular reception at underground campus pickup points does not block boarding.
 
 
-### 🟡 Priority 3: Booking Failures
-- **Observed Volume:** 2 reviews | **Average Score:** 1.0★ | **Rating Drag:** 0.105 (3.8% share)
-- **Why this hurts users:** Self-booking is MoveInSync's primary flow. If self-booking fails right before the cutoff window, the employee is stranded without a ride and the corporate transport promise breaks completely.
+### 🟡 Priority 3: Login & Authentication Failures
+- **Observed Volume:** 5 reviews | **Average Score:** 2.4★ | **Rating Drag:** 0.024 (4.2% share)
+- **Why this hurts users:** Authentication failures or expired tokens at 7:30 AM block the employee from accessing their schedule or boarding OTP.
 - **Recommended Action:**
   - Replace ambiguous booking failure errors with actionable guidance (e.g., 'Shift cutoff closed 12 mins ago. Tap here to request emergency facility roster exception').
   - Introduce background auto-retry for booking requests made on weak networks, with clear visual feedback: 'Booking in progress — we will notify you once confirmed.'
@@ -123,7 +127,7 @@ These are real quotes extracted from recent MoveInSync Play Store reviews that i
 
 
 ### 🟢 Quick Win: 48-Hour Developer Response Playbook
-Currently, only **1.9%** of reviews receive a developer reply. On Google Play, replying to a 1-star review with a concrete resolution or contact path results in **up to 25% of users revising their rating to 4 or 5 stars**.
+Currently, only **5.0%** of reviews receive a developer reply. On Google Play, replying to a 1-star review with a concrete resolution or contact path results in **up to 25% of users revising their rating to 4 or 5 stars**.
 
 **Action Plan:**
 - Set up an automated webhook alerting the support desk whenever a 1★ or 2★ review is posted.

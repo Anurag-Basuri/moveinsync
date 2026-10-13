@@ -1,347 +1,1025 @@
 {
-  "generated_at": "2026-10-12T18:37:19.606148+00:00",
-  "total_reviews": 60,
+  "generated_at": "2026-10-13T05:42:27.232482+00:00",
+  "total_reviews": 127,
+  "total_raw_reviews": 24322,
   "apps": {
     "employee": {
       "app_id": "com.moveinsync.ets",
       "app_label": "Employee App",
-      "total_reviews": 53,
-      "overall_avg_rating": 3.79,
+      "total_reviews": 120,
+      "total_raw_reviews": 24315,
+      "overall_avg_rating": 2.97,
       "rating_impact_by_issue": {
-        "positive_feedback": {
-          "count": 35,
-          "avg_rating": 5.0,
-          "rating_gap": -1.21,
-          "share_pct": 66.0,
-          "weighted_drag": -0.797
-        },
-        "ui_ux_poor": {
-          "count": 3,
-          "avg_rating": 1.33,
-          "rating_gap": 2.46,
-          "share_pct": 5.7,
-          "weighted_drag": 0.139
-        },
         "other": {
-          "count": 4,
-          "avg_rating": 2.0,
-          "rating_gap": 1.79,
-          "share_pct": 7.5,
-          "weighted_drag": 0.135
-        },
-        "update_regression": {
-          "count": 4,
-          "avg_rating": 1.0,
-          "rating_gap": 2.79,
-          "share_pct": 7.5,
-          "weighted_drag": 0.211
-        },
-        "tracking_inaccurate": {
-          "count": 3,
-          "avg_rating": 2.0,
-          "rating_gap": 1.79,
-          "share_pct": 5.7,
-          "weighted_drag": 0.101
-        },
-        "booking_failure": {
-          "count": 2,
-          "avg_rating": 1.0,
-          "rating_gap": 2.79,
-          "share_pct": 3.8,
-          "weighted_drag": 0.105
-        },
-        "login_auth": {
-          "count": 1,
-          "avg_rating": 1.0,
-          "rating_gap": 2.79,
-          "share_pct": 1.9,
-          "weighted_drag": 0.053
+          "count": 13,
+          "avg_rating": 2.23,
+          "rating_gap": 0.74,
+          "share_pct": 10.8,
+          "weighted_drag": 0.08
         },
         "notification_issue": {
           "count": 1,
+          "avg_rating": 2.0,
+          "rating_gap": 0.97,
+          "share_pct": 0.8,
+          "weighted_drag": 0.008
+        },
+        "login_auth": {
+          "count": 5,
+          "avg_rating": 2.4,
+          "rating_gap": 0.57,
+          "share_pct": 4.2,
+          "weighted_drag": 0.024
+        },
+        "positive_feedback": {
+          "count": 32,
+          "avg_rating": 4.66,
+          "rating_gap": -1.69,
+          "share_pct": 26.7,
+          "weighted_drag": -0.451
+        },
+        "tracking_inaccurate": {
+          "count": 8,
+          "avg_rating": 2.88,
+          "rating_gap": 0.09,
+          "share_pct": 6.7,
+          "weighted_drag": 0.006
+        },
+        "booking_failure": {
+          "count": 3,
+          "avg_rating": 2.0,
+          "rating_gap": 0.97,
+          "share_pct": 2.5,
+          "weighted_drag": 0.024
+        },
+        "ui_ux_poor": {
+          "count": 23,
+          "avg_rating": 1.96,
+          "rating_gap": 1.01,
+          "share_pct": 19.2,
+          "weighted_drag": 0.194
+        },
+        "app_crash_freeze": {
+          "count": 13,
+          "avg_rating": 2.15,
+          "rating_gap": 0.81,
+          "share_pct": 10.8,
+          "weighted_drag": 0.088
+        },
+        "feature_request": {
+          "count": 12,
+          "avg_rating": 3.25,
+          "rating_gap": -0.28,
+          "share_pct": 10.0,
+          "weighted_drag": -0.028
+        },
+        "driver_behaviour": {
+          "count": 1,
+          "avg_rating": 3.0,
+          "rating_gap": -0.03,
+          "share_pct": 0.8,
+          "weighted_drag": -0.0
+        },
+        "update_regression": {
+          "count": 2,
+          "avg_rating": 1.5,
+          "rating_gap": 1.47,
+          "share_pct": 1.7,
+          "weighted_drag": 0.024
+        },
+        "performance_slow": {
+          "count": 3,
+          "avg_rating": 3.0,
+          "rating_gap": -0.03,
+          "share_pct": 2.5,
+          "weighted_drag": -0.001
+        },
+        "safety_concern": {
+          "count": 3,
+          "avg_rating": 2.33,
+          "rating_gap": 0.63,
+          "share_pct": 2.5,
+          "weighted_drag": 0.016
+        },
+        "wrong_assignment": {
+          "count": 1,
           "avg_rating": 1.0,
-          "rating_gap": 2.79,
-          "share_pct": 1.9,
-          "weighted_drag": 0.053
+          "rating_gap": 1.97,
+          "share_pct": 0.8,
+          "weighted_drag": 0.016
         }
       },
       "journey_breakdown": {
         "app_general": {
-          "count": 38,
-          "avg_rating": 4.16,
-          "negative_pct": 21.1,
+          "count": 65,
+          "avg_rating": 3.12,
+          "negative_pct": 46.2,
           "sentiment_dist": {
-            "positive": 20,
-            "very_positive": 10,
-            "very_negative": 4,
-            "negative": 4
+            "very_negative": 13,
+            "neutral": 8,
+            "positive": 13,
+            "very_positive": 14,
+            "negative": 17
           }
         },
-        "ride_experience": {
-          "count": 2,
-          "avg_rating": 5.0,
-          "negative_pct": 0.0,
-          "sentiment_dist": {
-            "very_positive": 1,
-            "positive": 1
-          }
-        },
-        "safety": {
+        "issue_resolution": {
           "count": 3,
           "avg_rating": 2.67,
           "negative_pct": 66.7,
           "sentiment_dist": {
-            "negative": 1,
-            "very_negative": 1,
-            "very_positive": 1
+            "negative": 2,
+            "neutral": 1
           }
         },
         "pickup_tracking": {
-          "count": 5,
-          "avg_rating": 2.4,
-          "negative_pct": 60.0,
+          "count": 19,
+          "avg_rating": 2.95,
+          "negative_pct": 42.1,
           "sentiment_dist": {
-            "very_negative": 3,
+            "very_negative": 1,
+            "neutral": 7,
+            "positive": 2,
+            "negative": 7,
+            "very_positive": 2
+          }
+        },
+        "booking": {
+          "count": 9,
+          "avg_rating": 2.22,
+          "negative_pct": 77.8,
+          "sentiment_dist": {
+            "negative": 5,
+            "very_negative": 2,
+            "neutral": 1,
+            "positive": 1
+          }
+        },
+        "other": {
+          "count": 7,
+          "avg_rating": 2.14,
+          "negative_pct": 42.9,
+          "sentiment_dist": {
+            "neutral": 4,
+            "very_negative": 3
+          }
+        },
+        "ride_experience": {
+          "count": 7,
+          "avg_rating": 3.57,
+          "negative_pct": 28.6,
+          "sentiment_dist": {
+            "very_positive": 3,
+            "very_negative": 2,
             "positive": 1,
             "neutral": 1
           }
         },
+        "safety": {
+          "count": 8,
+          "avg_rating": 2.75,
+          "negative_pct": 75.0,
+          "sentiment_dist": {
+            "negative": 3,
+            "very_negative": 3,
+            "very_positive": 2
+          }
+        },
         "assignment": {
           "count": 1,
-          "avg_rating": 5.0,
+          "avg_rating": 3.0,
           "negative_pct": 0.0,
           "sentiment_dist": {
-            "very_positive": 1
+            "neutral": 1
           }
         },
-        "booking": {
-          "count": 2,
-          "avg_rating": 1.0,
-          "negative_pct": 100.0,
+        "dropoff": {
+          "count": 1,
+          "avg_rating": 4.0,
+          "negative_pct": 0.0,
           "sentiment_dist": {
-            "negative": 1,
-            "very_negative": 1
-          }
-        },
-        "issue_resolution": {
-          "count": 2,
-          "avg_rating": 3.0,
-          "negative_pct": 50.0,
-          "sentiment_dist": {
-            "very_negative": 1,
             "neutral": 1
           }
         }
       },
       "monthly_trends": {
-        "2026-10": {
-          "count": 53,
+        "2024-01": {
+          "count": 245,
+          "avg_rating": 3.61,
+          "star_dist": {
+            "5": 132,
+            "1": 66,
+            "4": 27,
+            "2": 10,
+            "3": 10
+          }
+        },
+        "2024-02": {
+          "count": 209,
+          "avg_rating": 3.53,
+          "star_dist": {
+            "1": 62,
+            "5": 114,
+            "3": 6,
+            "2": 10,
+            "4": 17
+          }
+        },
+        "2024-03": {
+          "count": 192,
+          "avg_rating": 3.45,
+          "star_dist": {
+            "5": 104,
+            "4": 10,
+            "1": 60,
+            "3": 7,
+            "2": 11
+          }
+        },
+        "2024-04": {
+          "count": 211,
+          "avg_rating": 3.56,
+          "star_dist": {
+            "5": 116,
+            "1": 64,
+            "2": 4,
+            "4": 19,
+            "3": 8
+          }
+        },
+        "2024-05": {
+          "count": 218,
+          "avg_rating": 3.71,
+          "star_dist": {
+            "5": 125,
+            "1": 56,
+            "2": 5,
+            "4": 21,
+            "3": 11
+          }
+        },
+        "2024-06": {
+          "count": 213,
+          "avg_rating": 3.62,
+          "star_dist": {
+            "5": 119,
+            "4": 19,
+            "1": 59,
+            "2": 6,
+            "3": 10
+          }
+        },
+        "2024-07": {
+          "count": 295,
+          "avg_rating": 3.56,
+          "star_dist": {
+            "5": 155,
+            "1": 82,
+            "4": 34,
+            "3": 9,
+            "2": 15
+          }
+        },
+        "2024-08": {
+          "count": 191,
+          "avg_rating": 3.61,
+          "star_dist": {
+            "4": 17,
+            "5": 107,
+            "1": 55,
+            "2": 5,
+            "3": 7
+          }
+        },
+        "2024-09": {
+          "count": 225,
+          "avg_rating": 3.64,
+          "star_dist": {
+            "1": 62,
+            "5": 128,
+            "4": 22,
+            "2": 9,
+            "3": 4
+          }
+        },
+        "2024-10": {
+          "count": 266,
+          "avg_rating": 3.73,
+          "star_dist": {
+            "5": 160,
+            "1": 69,
+            "2": 8,
+            "4": 20,
+            "3": 9
+          }
+        },
+        "2024-11": {
+          "count": 221,
+          "avg_rating": 3.71,
+          "star_dist": {
+            "4": 20,
+            "5": 130,
+            "2": 6,
+            "1": 59,
+            "3": 6
+          }
+        },
+        "2024-12": {
+          "count": 209,
+          "avg_rating": 3.78,
+          "star_dist": {
+            "1": 52,
+            "5": 123,
+            "4": 25,
+            "3": 4,
+            "2": 5
+          }
+        },
+        "2025-01": {
+          "count": 290,
+          "avg_rating": 3.41,
+          "star_dist": {
+            "4": 21,
+            "1": 96,
+            "2": 13,
+            "5": 152,
+            "3": 8
+          }
+        },
+        "2025-02": {
+          "count": 229,
+          "avg_rating": 3.46,
+          "star_dist": {
+            "5": 122,
+            "4": 18,
+            "1": 72,
+            "2": 12,
+            "3": 5
+          }
+        },
+        "2025-03": {
+          "count": 226,
+          "avg_rating": 3.8,
+          "star_dist": {
+            "4": 24,
+            "1": 55,
+            "5": 135,
+            "3": 8,
+            "2": 4
+          }
+        },
+        "2025-04": {
+          "count": 228,
+          "avg_rating": 3.84,
+          "star_dist": {
+            "1": 53,
+            "5": 142,
+            "2": 7,
+            "4": 21,
+            "3": 5
+          }
+        },
+        "2025-05": {
+          "count": 257,
+          "avg_rating": 3.8,
+          "star_dist": {
+            "5": 158,
+            "4": 20,
+            "1": 58,
+            "2": 15,
+            "3": 6
+          }
+        },
+        "2025-06": {
+          "count": 301,
+          "avg_rating": 3.56,
+          "star_dist": {
+            "1": 88,
+            "5": 167,
+            "2": 12,
+            "3": 11,
+            "4": 23
+          }
+        },
+        "2025-07": {
+          "count": 293,
+          "avg_rating": 3.78,
+          "star_dist": {
+            "5": 165,
+            "1": 66,
+            "4": 40,
+            "3": 12,
+            "2": 10
+          }
+        },
+        "2025-08": {
+          "count": 240,
+          "avg_rating": 3.67,
+          "star_dist": {
+            "5": 139,
+            "3": 7,
+            "1": 65,
+            "2": 8,
+            "4": 21
+          }
+        },
+        "2025-09": {
+          "count": 205,
+          "avg_rating": 3.52,
+          "star_dist": {
+            "5": 108,
+            "1": 61,
+            "4": 19,
+            "3": 10,
+            "2": 7
+          }
+        },
+        "2025-10": {
+          "count": 297,
           "avg_rating": 3.79,
           "star_dist": {
-            "5": 36,
-            "2": 1,
-            "1": 15,
-            "4": 1
+            "5": 182,
+            "4": 24,
+            "3": 11,
+            "1": 73,
+            "2": 7
+          }
+        },
+        "2025-11": {
+          "count": 160,
+          "avg_rating": 3.69,
+          "star_dist": {
+            "5": 92,
+            "1": 42,
+            "4": 16,
+            "2": 6,
+            "3": 4
+          }
+        },
+        "2025-12": {
+          "count": 196,
+          "avg_rating": 3.84,
+          "star_dist": {
+            "5": 123,
+            "2": 11,
+            "4": 15,
+            "1": 43,
+            "3": 4
+          }
+        },
+        "2026-01": {
+          "count": 211,
+          "avg_rating": 3.77,
+          "star_dist": {
+            "5": 128,
+            "4": 15,
+            "1": 49,
+            "2": 11,
+            "3": 8
+          }
+        },
+        "2026-02": {
+          "count": 207,
+          "avg_rating": 3.74,
+          "star_dist": {
+            "5": 128,
+            "4": 16,
+            "1": 57,
+            "3": 1,
+            "2": 5
+          }
+        },
+        "2026-03": {
+          "count": 197,
+          "avg_rating": 3.98,
+          "star_dist": {
+            "1": 41,
+            "5": 135,
+            "4": 10,
+            "2": 5,
+            "3": 6
+          }
+        },
+        "2026-04": {
+          "count": 292,
+          "avg_rating": 4.03,
+          "star_dist": {
+            "1": 61,
+            "5": 202,
+            "4": 23,
+            "2": 3,
+            "3": 3
+          }
+        },
+        "2026-05": {
+          "count": 247,
+          "avg_rating": 4.02,
+          "star_dist": {
+            "5": 169,
+            "1": 50,
+            "4": 16,
+            "3": 9,
+            "2": 3
+          }
+        },
+        "2026-06": {
+          "count": 273,
+          "avg_rating": 3.56,
+          "star_dist": {
+            "1": 85,
+            "5": 159,
+            "3": 10,
+            "2": 7,
+            "4": 12
+          }
+        },
+        "2026-07": {
+          "count": 285,
+          "avg_rating": 4.01,
+          "star_dist": {
+            "5": 197,
+            "1": 55,
+            "3": 6,
+            "2": 11,
+            "4": 16
+          }
+        },
+        "2026-08": {
+          "count": 242,
+          "avg_rating": 3.65,
+          "star_dist": {
+            "1": 69,
+            "5": 148,
+            "4": 8,
+            "2": 8,
+            "3": 9
+          }
+        },
+        "2026-09": {
+          "count": 245,
+          "avg_rating": 3.84,
+          "star_dist": {
+            "5": 163,
+            "1": 61,
+            "4": 10,
+            "2": 7,
+            "3": 4
+          }
+        },
+        "2026-10": {
+          "count": 82,
+          "avg_rating": 3.74,
+          "star_dist": {
+            "5": 53,
+            "2": 2,
+            "1": 23,
+            "4": 3,
+            "3": 1
           }
         }
       },
       "issue_trends": {
-        "2026-10": {
-          "positive_feedback": 35,
-          "ui_ux_poor": 3,
-          "other": 4,
-          "update_regression": 4,
-          "tracking_inaccurate": 3,
-          "booking_failure": 2,
+        "2025-11": {
+          "other": 1,
+          "notification_issue": 1,
           "login_auth": 1,
-          "notification_issue": 1
+          "positive_feedback": 4,
+          "tracking_inaccurate": 2,
+          "booking_failure": 1
+        },
+        "2025-12": {
+          "ui_ux_poor": 3,
+          "app_crash_freeze": 1,
+          "tracking_inaccurate": 1,
+          "positive_feedback": 3,
+          "login_auth": 1,
+          "feature_request": 1
+        },
+        "2026-01": {
+          "ui_ux_poor": 5,
+          "login_auth": 1,
+          "tracking_inaccurate": 1,
+          "positive_feedback": 3
+        },
+        "2026-02": {
+          "ui_ux_poor": 2,
+          "app_crash_freeze": 1,
+          "other": 4,
+          "positive_feedback": 2,
+          "login_auth": 1
+        },
+        "2026-03": {
+          "other": 2,
+          "driver_behaviour": 1,
+          "ui_ux_poor": 3,
+          "positive_feedback": 1,
+          "update_regression": 1,
+          "performance_slow": 1,
+          "feature_request": 1
+        },
+        "2026-04": {
+          "other": 1,
+          "feature_request": 4,
+          "ui_ux_poor": 2,
+          "positive_feedback": 3
+        },
+        "2026-05": {
+          "safety_concern": 1,
+          "app_crash_freeze": 2,
+          "other": 2,
+          "positive_feedback": 3,
+          "ui_ux_poor": 2
+        },
+        "2026-06": {
+          "tracking_inaccurate": 1,
+          "app_crash_freeze": 2,
+          "feature_request": 1,
+          "positive_feedback": 2,
+          "ui_ux_poor": 2,
+          "performance_slow": 1,
+          "safety_concern": 1
+        },
+        "2026-07": {
+          "app_crash_freeze": 3,
+          "positive_feedback": 3,
+          "safety_concern": 1,
+          "tracking_inaccurate": 1,
+          "feature_request": 1,
+          "other": 1
+        },
+        "2026-08": {
+          "app_crash_freeze": 1,
+          "feature_request": 3,
+          "other": 1,
+          "positive_feedback": 2,
+          "ui_ux_poor": 1,
+          "booking_failure": 1,
+          "login_auth": 1
+        },
+        "2026-09": {
+          "ui_ux_poor": 1,
+          "app_crash_freeze": 2,
+          "performance_slow": 1,
+          "positive_feedback": 3,
+          "other": 1,
+          "feature_request": 1,
+          "tracking_inaccurate": 1
+        },
+        "2026-10": {
+          "update_regression": 1,
+          "ui_ux_poor": 2,
+          "app_crash_freeze": 1,
+          "tracking_inaccurate": 1,
+          "positive_feedback": 3,
+          "wrong_assignment": 1,
+          "booking_failure": 1
         }
       },
       "top_reviews": [
         {
-          "text": "dislike the new update. Bring the old version back. It was simple and minimalist.",
+          "text": "Most frustrating aspect of this app is, when cab is waiting for you and you are in hurry, you will be logged out with no access to cab number/otp/call option to helpdesk etc. We do get regular SMS but",
+          "rating": 2,
+          "thumbs_up": 5,
+          "issue_type": "login_auth",
+          "journey_stage": "pickup_tracking",
+          "review_date": "2025-12-23T06:09:59",
+          "app_id": "com.moveinsync.ets"
+        },
+        {
+          "text": "Unable to view the schedule for the whole month even though the schedule is done a month prior. Only the following / next schedule is shown. Reinstalled app multiple times!",
           "rating": 1,
+          "thumbs_up": 5,
+          "issue_type": "ui_ux_poor",
+          "journey_stage": "booking",
+          "review_date": "2026-01-29T17:43:36",
+          "app_id": "com.moveinsync.ets"
+        },
+        {
+          "text": "Very inaccurate app, estimated time of pickup is always wrong. it will waste your time. Does not update vehicle locations a lot of times. I've been using this app for 4-5 months now even after multipl",
+          "rating": 1,
+          "thumbs_up": 2,
+          "issue_type": "tracking_inaccurate",
+          "journey_stage": "pickup_tracking",
+          "review_date": "2025-11-28T07:09:01",
+          "app_id": "com.moveinsync.ets"
+        },
+        {
+          "text": "whatever the application had the features till now were great. But if the application could also show how long the vehicle is from the destination will make it more flexible to use.",
+          "rating": 4,
+          "thumbs_up": 2,
+          "issue_type": "feature_request",
+          "journey_stage": "ride_experience",
+          "review_date": "2026-04-29T00:10:04",
+          "app_id": "com.moveinsync.ets"
+        },
+        {
+          "text": "such a good service when traveling and while booking cab.",
+          "rating": 4,
+          "thumbs_up": 1,
+          "issue_type": "positive_feedback",
+          "journey_stage": "app_general",
+          "review_date": "2025-11-21T07:39:10",
+          "app_id": "com.moveinsync.ets"
+        },
+        {
+          "text": "Good app to manage company transport with reasonable flexibility for clubbing people together, multiple pickups, tracking and more.",
+          "rating": 5,
+          "thumbs_up": 1,
+          "issue_type": "other",
+          "journey_stage": "other",
+          "review_date": "2026-02-27T14:02:23",
+          "app_id": "com.moveinsync.ets"
+        },
+        {
+          "text": "Qr code scanner not working very difficult to scan .only in some angles it's scanning .issue happening from past few weeks before it was fine no issue with my other qr code scanner only movensync has ",
+          "rating": 2,
           "thumbs_up": 1,
           "issue_type": "update_regression",
-          "journey_stage": "app_general",
-          "review_date": "2026-10-08T11:01:44",
-          "app_id": "com.moveinsync.ets"
-        },
-        {
-          "text": "Good 👍",
-          "rating": 5,
-          "thumbs_up": 1,
-          "issue_type": "positive_feedback",
-          "journey_stage": "app_general",
-          "review_date": "2026-10-08T06:15:54",
-          "app_id": "com.moveinsync.ets"
-        },
-        {
-          "text": "overall good",
-          "rating": 5,
-          "thumbs_up": 1,
-          "issue_type": "positive_feedback",
-          "journey_stage": "app_general",
-          "review_date": "2026-10-08T00:34:30",
-          "app_id": "com.moveinsync.ets"
-        },
-        {
-          "text": "all good",
-          "rating": 5,
-          "thumbs_up": 0,
-          "issue_type": "positive_feedback",
-          "journey_stage": "app_general",
-          "review_date": "2026-10-11T11:45:45",
-          "app_id": "com.moveinsync.ets"
-        },
-        {
-          "text": "great overall experience",
-          "rating": 5,
-          "thumbs_up": 0,
-          "issue_type": "positive_feedback",
-          "journey_stage": "ride_experience",
-          "review_date": "2026-10-11T06:08:29",
-          "app_id": "com.moveinsync.ets"
-        },
-        {
-          "text": "Excellent 👌",
-          "rating": 5,
-          "thumbs_up": 0,
-          "issue_type": "positive_feedback",
-          "journey_stage": "app_general",
-          "review_date": "2026-10-11T02:39:42",
-          "app_id": "com.moveinsync.ets"
-        },
-        {
-          "text": "The new feature and very annoying feature which you have introduced - when you click view otp , it pops up the seat belt safely first. Why do you ask for user input one more click . very annoying I sh",
-          "rating": 2,
-          "thumbs_up": 0,
-          "issue_type": "ui_ux_poor",
           "journey_stage": "safety",
-          "review_date": "2026-10-09T18:11:59",
+          "review_date": "2026-03-24T18:15:46",
           "app_id": "com.moveinsync.ets"
         },
         {
-          "text": "Good",
+          "text": "Have a messaging feature under tracking section so that members and drivers can interact easily instead of calling each & every time.",
+          "rating": 2,
+          "thumbs_up": 1,
+          "issue_type": "feature_request",
+          "journey_stage": "pickup_tracking",
+          "review_date": "2026-04-20T21:59:06",
+          "app_id": "com.moveinsync.ets"
+        },
+        {
+          "text": "But sometimes The Drivers tap on the forcestop and switched it off and speeding beyond the limits resolve this bug...",
           "rating": 5,
-          "thumbs_up": 0,
-          "issue_type": "positive_feedback",
-          "journey_stage": "app_general",
-          "review_date": "2026-10-09T16:55:33",
+          "thumbs_up": 1,
+          "issue_type": "safety_concern",
+          "journey_stage": "safety",
+          "review_date": "2026-06-29T15:56:09",
           "app_id": "com.moveinsync.ets"
         },
         {
-          "text": "worst app",
+          "text": "not properly deployed",
           "rating": 1,
           "thumbs_up": 0,
           "issue_type": "other",
           "journey_stage": "app_general",
-          "review_date": "2026-10-09T13:55:58",
-          "app_id": "com.moveinsync.ets"
-        },
-        {
-          "text": "whenever i update this app, i am not able to open the app again, I need to uninstall and reinstall again. facing this issue since 3 months",
-          "rating": 1,
-          "thumbs_up": 0,
-          "issue_type": "update_regression",
-          "journey_stage": "app_general",
-          "review_date": "2026-10-09T10:55:03",
+          "review_date": "2025-11-28T19:23:42",
           "app_id": "com.moveinsync.ets"
         }
       ],
       "dev_reply_stats": {
-        "replied_count": 1,
-        "unreplied_count": 52,
-        "reply_rate_pct": 1.9,
-        "replied_avg_rating": 1.0,
-        "unreplied_avg_rating": 3.85
+        "replied_count": 6,
+        "unreplied_count": 114,
+        "reply_rate_pct": 5.0,
+        "replied_avg_rating": 3.17,
+        "unreplied_avg_rating": 2.96
       },
       "version_analysis": {
-        "12.19.0": {
-          "count": 42,
-          "avg_rating": 3.76,
+        "12.7": {
+          "count": 6,
+          "avg_rating": 2.83,
           "star_dist": {
-            "5": 28,
+            "1": 2,
             "2": 1,
-            "1": 12,
+            "5": 2,
+            "3": 1
+          }
+        },
+        "12.6": {
+          "count": 5,
+          "avg_rating": 3.2,
+          "star_dist": {
+            "3": 2,
+            "4": 2,
+            "2": 1
+          }
+        },
+        "12.8.2": {
+          "count": 5,
+          "avg_rating": 3.0,
+          "star_dist": {
+            "1": 1,
+            "2": 2,
+            "5": 2
+          }
+        },
+        "12.9.2": {
+          "count": 6,
+          "avg_rating": 3.5,
+          "star_dist": {
+            "1": 1,
+            "4": 2,
+            "5": 2,
+            "2": 1
+          }
+        },
+        "12.9.1": {
+          "count": 3,
+          "avg_rating": 2.33,
+          "star_dist": {
+            "3": 2,
+            "1": 1
+          }
+        },
+        "12.10": {
+          "count": 8,
+          "avg_rating": 2.62,
+          "star_dist": {
+            "1": 3,
+            "2": 1,
+            "3": 1,
+            "4": 2,
+            "5": 1
+          }
+        },
+        "12.11.0": {
+          "count": 6,
+          "avg_rating": 2.83,
+          "star_dist": {
+            "1": 2,
+            "4": 2,
+            "2": 1,
+            "5": 1
+          }
+        },
+        "12.10.2": {
+          "count": 3,
+          "avg_rating": 2.67,
+          "star_dist": {
+            "2": 1,
+            "3": 2
+          }
+        },
+        "12.11.2": {
+          "count": 6,
+          "avg_rating": 2.33,
+          "star_dist": {
+            "1": 2,
+            "2": 1,
+            "3": 2,
             "4": 1
           }
         },
-        "12.20.0": {
+        "12.12.3": {
+          "count": 8,
+          "avg_rating": 3.12,
+          "star_dist": {
+            "1": 2,
+            "2": 1,
+            "4": 2,
+            "5": 2,
+            "3": 1
+          }
+        },
+        "12.14.1": {
+          "count": 6,
+          "avg_rating": 2.83,
+          "star_dist": {
+            "1": 2,
+            "2": 1,
+            "3": 1,
+            "5": 2
+          }
+        },
+        "12.16.0": {
           "count": 4,
+          "avg_rating": 2.5,
+          "star_dist": {
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "1": 1
+          }
+        },
+        "12.17.0": {
+          "count": 6,
+          "avg_rating": 2.83,
+          "star_dist": {
+            "1": 1,
+            "2": 2,
+            "3": 1,
+            "5": 1,
+            "4": 1
+          }
+        },
+        "12.18.0": {
+          "count": 3,
           "avg_rating": 4.0,
           "star_dist": {
-            "5": 3,
-            "1": 1
+            "4": 1,
+            "5": 1,
+            "3": 1
+          }
+        },
+        "12.19.0": {
+          "count": 13,
+          "avg_rating": 3.15,
+          "star_dist": {
+            "2": 3,
+            "4": 3,
+            "5": 4,
+            "1": 3
           }
         }
       },
       "prioritized_recommendations": [
         {
-          "issue": "update_regression",
-          "priority_score": 211.4,
-          "count": 4,
-          "avg_rating": 1.0,
-          "weighted_drag": 0.211,
-          "share_pct": 7.5,
+          "issue": "ui_ux_poor",
+          "priority_score": 196.3,
+          "count": 23,
+          "avg_rating": 1.96,
+          "weighted_drag": 0.194,
+          "share_pct": 19.2,
           "app": "Employee App",
           "rank": 1,
-          "overall_rank": 1
-        },
-        {
-          "issue": "ui_ux_poor",
-          "priority_score": 139.3,
-          "count": 3,
-          "avg_rating": 1.33,
-          "weighted_drag": 0.139,
-          "share_pct": 5.7,
-          "app": "Employee App",
-          "rank": 2,
           "overall_rank": 2
         },
         {
-          "issue": "booking_failure",
-          "priority_score": 105.2,
-          "count": 2,
-          "avg_rating": 1.0,
-          "weighted_drag": 0.105,
-          "share_pct": 3.8,
+          "issue": "app_crash_freeze",
+          "priority_score": 89.3,
+          "count": 13,
+          "avg_rating": 2.15,
+          "weighted_drag": 0.088,
+          "share_pct": 10.8,
           "app": "Employee App",
-          "rank": 3,
+          "rank": 2,
           "overall_rank": 3
         },
         {
-          "issue": "tracking_inaccurate",
-          "priority_score": 101.3,
-          "count": 3,
-          "avg_rating": 2.0,
-          "weighted_drag": 0.101,
-          "share_pct": 5.7,
+          "issue": "login_auth",
+          "priority_score": 24.5,
+          "count": 5,
+          "avg_rating": 2.4,
+          "weighted_drag": 0.024,
+          "share_pct": 4.2,
           "app": "Employee App",
-          "rank": 4,
+          "rank": 3,
           "overall_rank": 4
         },
         {
-          "issue": "login_auth",
-          "priority_score": 53.1,
-          "count": 1,
-          "avg_rating": 1.0,
-          "weighted_drag": 0.053,
-          "share_pct": 1.9,
+          "issue": "booking_failure",
+          "priority_score": 24.3,
+          "count": 3,
+          "avg_rating": 2.0,
+          "weighted_drag": 0.024,
+          "share_pct": 2.5,
           "app": "Employee App",
-          "rank": 5,
+          "rank": 4,
           "overall_rank": 5
         },
         {
-          "issue": "notification_issue",
-          "priority_score": 53.1,
-          "count": 1,
-          "avg_rating": 1.0,
-          "weighted_drag": 0.053,
-          "share_pct": 1.9,
+          "issue": "update_regression",
+          "priority_score": 24.2,
+          "count": 2,
+          "avg_rating": 1.5,
+          "weighted_drag": 0.024,
+          "share_pct": 1.7,
+          "app": "Employee App",
+          "rank": 5,
+          "overall_rank": 6
+        },
+        {
+          "issue": "safety_concern",
+          "priority_score": 16.3,
+          "count": 3,
+          "avg_rating": 2.33,
+          "weighted_drag": 0.016,
+          "share_pct": 2.5,
           "app": "Employee App",
           "rank": 6,
-          "overall_rank": 6
+          "overall_rank": 7
+        },
+        {
+          "issue": "wrong_assignment",
+          "priority_score": 16.1,
+          "count": 1,
+          "avg_rating": 1.0,
+          "weighted_drag": 0.016,
+          "share_pct": 0.8,
+          "app": "Employee App",
+          "rank": 7,
+          "overall_rank": 8
+        },
+        {
+          "issue": "notification_issue",
+          "priority_score": 8.1,
+          "count": 1,
+          "avg_rating": 2.0,
+          "weighted_drag": 0.008,
+          "share_pct": 0.8,
+          "app": "Employee App",
+          "rank": 8,
+          "overall_rank": 9
+        },
+        {
+          "issue": "tracking_inaccurate",
+          "priority_score": 6.8,
+          "count": 8,
+          "avg_rating": 2.88,
+          "weighted_drag": 0.006,
+          "share_pct": 6.7,
+          "app": "Employee App",
+          "rank": 9,
+          "overall_rank": 10
         }
       ]
     },
@@ -349,40 +1027,48 @@
       "app_id": "com.moveinsync.driver.dco",
       "app_label": "Driver App",
       "total_reviews": 7,
+      "total_raw_reviews": 7,
       "overall_avg_rating": 2.71,
       "rating_impact_by_issue": {
         "other": {
-          "count": 4,
+          "count": 3,
+          "avg_rating": 2.33,
+          "rating_gap": 0.38,
+          "share_pct": 42.9,
+          "weighted_drag": 0.163
+        },
+        "driver_onboarding": {
+          "count": 2,
           "avg_rating": 1.0,
           "rating_gap": 1.71,
-          "share_pct": 57.1,
-          "weighted_drag": 0.98
+          "share_pct": 28.6,
+          "weighted_drag": 0.49
         },
         "positive_feedback": {
-          "count": 3,
+          "count": 2,
           "avg_rating": 5.0,
           "rating_gap": -2.29,
-          "share_pct": 42.9,
-          "weighted_drag": -0.98
+          "share_pct": 28.6,
+          "weighted_drag": -0.653
         }
       },
       "journey_breakdown": {
         "app_general": {
-          "count": 5,
-          "avg_rating": 3.4,
-          "negative_pct": 40.0,
+          "count": 6,
+          "avg_rating": 2.33,
+          "negative_pct": 66.7,
           "sentiment_dist": {
-            "very_negative": 2,
-            "positive": 3
+            "very_negative": 3,
+            "negative": 1,
+            "very_positive": 2
           }
         },
-        "issue_resolution": {
-          "count": 2,
-          "avg_rating": 1.0,
-          "negative_pct": 100.0,
+        "other": {
+          "count": 1,
+          "avg_rating": 5.0,
+          "negative_pct": 0.0,
           "sentiment_dist": {
-            "negative": 1,
-            "very_negative": 1
+            "neutral": 1
           }
         }
       },
@@ -438,13 +1124,14 @@
           "positive_feedback": 1
         },
         "2026-01": {
-          "other": 1
+          "driver_onboarding": 1
         },
         "2026-02": {
-          "other": 2
+          "driver_onboarding": 1,
+          "other": 1
         },
         "2026-06": {
-          "positive_feedback": 1
+          "other": 1
         },
         "2026-08": {
           "other": 1
@@ -455,8 +1142,8 @@
           "text": "I own my own commercial vehicle and would like to attach my car and work as a driver with MoveInSyn for corporate transport services. I have completed the registration process through the driver onboa",
           "rating": 1,
           "thumbs_up": 4,
-          "issue_type": "other",
-          "journey_stage": "issue_resolution",
+          "issue_type": "driver_onboarding",
+          "journey_stage": "app_general",
           "review_date": "2026-02-14T20:44:59",
           "app_id": "com.moveinsync.driver.dco"
         },
@@ -491,8 +1178,8 @@
           "text": "good",
           "rating": 5,
           "thumbs_up": 0,
-          "issue_type": "positive_feedback",
-          "journey_stage": "app_general",
+          "issue_type": "other",
+          "journey_stage": "other",
           "review_date": "2026-06-28T13:12:45",
           "app_id": "com.moveinsync.driver.dco"
         },
@@ -500,8 +1187,8 @@
           "text": "I am not able to submit my documents",
           "rating": 1,
           "thumbs_up": 0,
-          "issue_type": "other",
-          "journey_stage": "issue_resolution",
+          "issue_type": "driver_onboarding",
+          "journey_stage": "app_general",
           "review_date": "2026-01-06T16:23:18",
           "app_id": "com.moveinsync.driver.dco"
         },
@@ -523,7 +1210,19 @@
         "unreplied_avg_rating": 2.71
       },
       "version_analysis": {},
-      "prioritized_recommendations": []
+      "prioritized_recommendations": [
+        {
+          "issue": "driver_onboarding",
+          "priority_score": 490.2,
+          "count": 2,
+          "avg_rating": 1.0,
+          "weighted_drag": 0.49,
+          "share_pct": 28.6,
+          "app": "Driver App",
+          "rank": 1,
+          "overall_rank": 1
+        }
+      ]
     }
   },
   "snapshots": [
@@ -560,70 +1259,114 @@
   ],
   "combined_recommendations": [
     {
-      "issue": "update_regression",
-      "priority_score": 211.4,
-      "count": 4,
+      "issue": "driver_onboarding",
+      "priority_score": 490.2,
+      "count": 2,
       "avg_rating": 1.0,
-      "weighted_drag": 0.211,
-      "share_pct": 7.5,
-      "app": "Employee App",
+      "weighted_drag": 0.49,
+      "share_pct": 28.6,
+      "app": "Driver App",
       "rank": 1,
       "overall_rank": 1
     },
     {
       "issue": "ui_ux_poor",
-      "priority_score": 139.3,
-      "count": 3,
-      "avg_rating": 1.33,
-      "weighted_drag": 0.139,
-      "share_pct": 5.7,
+      "priority_score": 196.3,
+      "count": 23,
+      "avg_rating": 1.96,
+      "weighted_drag": 0.194,
+      "share_pct": 19.2,
       "app": "Employee App",
-      "rank": 2,
+      "rank": 1,
       "overall_rank": 2
     },
     {
-      "issue": "booking_failure",
-      "priority_score": 105.2,
-      "count": 2,
-      "avg_rating": 1.0,
-      "weighted_drag": 0.105,
-      "share_pct": 3.8,
+      "issue": "app_crash_freeze",
+      "priority_score": 89.3,
+      "count": 13,
+      "avg_rating": 2.15,
+      "weighted_drag": 0.088,
+      "share_pct": 10.8,
       "app": "Employee App",
-      "rank": 3,
+      "rank": 2,
       "overall_rank": 3
     },
     {
-      "issue": "tracking_inaccurate",
-      "priority_score": 101.3,
-      "count": 3,
-      "avg_rating": 2.0,
-      "weighted_drag": 0.101,
-      "share_pct": 5.7,
+      "issue": "login_auth",
+      "priority_score": 24.5,
+      "count": 5,
+      "avg_rating": 2.4,
+      "weighted_drag": 0.024,
+      "share_pct": 4.2,
       "app": "Employee App",
-      "rank": 4,
+      "rank": 3,
       "overall_rank": 4
     },
     {
-      "issue": "login_auth",
-      "priority_score": 53.1,
-      "count": 1,
-      "avg_rating": 1.0,
-      "weighted_drag": 0.053,
-      "share_pct": 1.9,
+      "issue": "booking_failure",
+      "priority_score": 24.3,
+      "count": 3,
+      "avg_rating": 2.0,
+      "weighted_drag": 0.024,
+      "share_pct": 2.5,
       "app": "Employee App",
-      "rank": 5,
+      "rank": 4,
       "overall_rank": 5
     },
     {
-      "issue": "notification_issue",
-      "priority_score": 53.1,
-      "count": 1,
-      "avg_rating": 1.0,
-      "weighted_drag": 0.053,
-      "share_pct": 1.9,
+      "issue": "update_regression",
+      "priority_score": 24.2,
+      "count": 2,
+      "avg_rating": 1.5,
+      "weighted_drag": 0.024,
+      "share_pct": 1.7,
+      "app": "Employee App",
+      "rank": 5,
+      "overall_rank": 6
+    },
+    {
+      "issue": "safety_concern",
+      "priority_score": 16.3,
+      "count": 3,
+      "avg_rating": 2.33,
+      "weighted_drag": 0.016,
+      "share_pct": 2.5,
       "app": "Employee App",
       "rank": 6,
-      "overall_rank": 6
+      "overall_rank": 7
+    },
+    {
+      "issue": "wrong_assignment",
+      "priority_score": 16.1,
+      "count": 1,
+      "avg_rating": 1.0,
+      "weighted_drag": 0.016,
+      "share_pct": 0.8,
+      "app": "Employee App",
+      "rank": 7,
+      "overall_rank": 8
+    },
+    {
+      "issue": "notification_issue",
+      "priority_score": 8.1,
+      "count": 1,
+      "avg_rating": 2.0,
+      "weighted_drag": 0.008,
+      "share_pct": 0.8,
+      "app": "Employee App",
+      "rank": 8,
+      "overall_rank": 9
+    },
+    {
+      "issue": "tracking_inaccurate",
+      "priority_score": 6.8,
+      "count": 8,
+      "avg_rating": 2.88,
+      "weighted_drag": 0.006,
+      "share_pct": 6.7,
+      "app": "Employee App",
+      "rank": 9,
+      "overall_rank": 10
     }
   ]
 }

@@ -55,6 +55,7 @@ ISSUE_TYPES = [
     "update_regression",
     "feature_request",
     "billing_payment",
+    "driver_onboarding",
     "positive_feedback",
     "other",
 ]

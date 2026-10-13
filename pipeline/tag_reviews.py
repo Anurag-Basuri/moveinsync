@@ -41,6 +41,7 @@ For DRIVER APP reviews, adapt the journey stages:
 - "ride_experience" → during the trip
 - "dropoff" → completing the trip
 - "issue_resolution" → driver raising issues, contacting support
+- For driver onboarding, document upload, registration, or vehicle attachment issues, tag as issue_type: "driver_onboarding" and journey_stage: "app_general" or "issue_resolution".
 
 Respond ONLY with a JSON array. Each element must have:
 {{"review_id": "...", "journey_stage": "...", "issue_type": "...", "sentiment": "...", "summary": "..."}}
@@ -137,7 +138,9 @@ def main():
     parser.add_argument("--retag", action="store_true", help="Re-tag all reviews from scratch")
     parser.add_argument("--batch-size", type=int, default=15, help="Reviews per API call")
     parser.add_argument("--limit", type=int, default=0, help="Max reviews to tag (0 for all)")
-    parser.add_argument("--model", default="gemini-3.5-flash-lite", help="Gemini model name")
+    parser.add_argument("--sample-per-month", type=int, default=0, help="Sample N reviews per month across recent history")
+    parser.add_argument("--months-back", type=int, default=12, help="Number of recent months to sample from")
+    parser.add_argument("--model", default="gemini-2.5-flash", help="Gemini model name")
     args = parser.parse_args()
 
     api_key = load_api_key()
@@ -155,9 +158,63 @@ def main():
     print(f"Loaded {len(raw_reviews)} total reviews from data/")
 
     already_tagged = {} if args.retag else load_tagged()
-    to_tag = [r for r in raw_reviews if r["review_id"] not in already_tagged]
-    if args.limit > 0:
-        to_tag = to_tag[:args.limit]
+    
+    if args.sample_per_month > 0:
+        # Sample across multiple recent months for rich time-series trends
+        driver_reviews = [r for r in raw_reviews if "driver" in r.get("app_id", "").lower()]
+        emp_reviews = [r for r in raw_reviews if "driver" not in r.get("app_id", "").lower()]
+        
+        # Group employee reviews by month
+        from collections import defaultdict
+        by_month = defaultdict(list)
+        for r in emp_reviews:
+            d = r.get("review_date", "")[:7]
+            if d:
+                by_month[d].append(r)
+        
+        recent_months = sorted(by_month.keys())[-args.months_back:]
+        sampled = []
+        for m in recent_months:
+            m_reviews = by_month[m]
+            # Prioritize reviews with meaningful text
+            with_text = [r for r in m_reviews if len(r.get("text", "").strip()) >= 15]
+            without_text = [r for r in m_reviews if len(r.get("text", "").strip()) < 15]
+            
+            # Sort with_text to ensure diverse star ratings
+            by_star = defaultdict(list)
+            for r in with_text:
+                by_star[r.get("rating", "3")].append(r)
+            
+            star_sample = []
+            # Round-robin pick across star ratings (1, 2, 3, 4, 5)
+            stars = ["1", "2", "3", "4", "5"]
+            idx = 0
+            while len(star_sample) < args.sample_per_month and any(by_star.values()):
+                st = stars[idx % len(stars)]
+                if by_star[st]:
+                    star_sample.append(by_star[st].pop(0))
+                idx += 1
+                if idx > 100:  # safety
+                    break
+            
+            # If still need more to hit target, fill from remaining
+            if len(star_sample) < args.sample_per_month:
+                remaining = with_text + without_text
+                for r in remaining:
+                    if r not in star_sample:
+                        star_sample.append(r)
+                    if len(star_sample) >= args.sample_per_month:
+                        break
+            sampled.extend(star_sample)
+            
+        # Combine all driver reviews + sampled employee reviews
+        combined = driver_reviews + sampled
+        to_tag = [r for r in combined if r["review_id"] not in already_tagged]
+    else:
+        to_tag = [r for r in raw_reviews if r["review_id"] not in already_tagged]
+        if args.limit > 0:
+            to_tag = to_tag[:args.limit]
+            
     print(f"  {len(already_tagged)} already tagged, {len(to_tag)} to tag")
 
     if not to_tag:
