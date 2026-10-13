@@ -1,6 +1,6 @@
 # MoveInSync — Play Store Review Intelligence & Journey Analytics
 
-> 🌐 **Live Interactive Dashboard:** [https://anurag-basuri.github.io/moveinsync/](https://anurag-basuri.github.io/moveinsync/) *(also accessible at [dashboard/index.html](https://anurag-basuri.github.io/moveinsync/dashboard/index.html))*
+> 🌐 **Live Interactive Dashboard:** [https://anurag-basuri.github.io/moveinsync/dashboard/index.html](https://anurag-basuri.github.io/moveinsync/dashboard/index.html)
 
 ---
 
@@ -265,5 +265,5 @@ This project was built through a deliberate pairing of specialized tools:
 ## 📄 Further Reading
 
 - **[RECOMMENDATION.md](RECOMMENDATION.md)** — The full executive strategy memo with root-cause explanations and a 30-60-90 day engineering roadmap.
-- **[Live Interactive Dashboard](https://anurag-basuri.github.io/moveinsync/)** ([`dashboard/`](dashboard/)) — Live interactive charts, tab comparisons, and upvoted review surfaces hosted on GitHub Pages.
+- **[Live Interactive Dashboard](https://anurag-basuri.github.io/moveinsync/dashboard/index.html)** — Live interactive charts, tab comparisons, and upvoted review surfaces hosted on GitHub Pages.
 - **Repeatability:** Run `python run_pipeline.py` after any app update to immediately track whether user sentiment improved or regressed.
