@@ -81,6 +81,45 @@ PRIORITY_EXPLANATIONS = {
 }
 
 
+# # Domain-specific engineering solutions for top issues
+SOLUTIONS_BY_ISSUE = {
+    "ui_ux_poor": [
+        "Remove the interstitial seatbelt popup prior to OTP display. Show safety advisories passively inside the vehicle card or as an in-ride header banner instead.",
+        "Display the Boarding OTP directly on the persistent pickup card or inside an Android Quick Notification Widget so users never have to tap through menus to find it.",
+        "Streamline the home view to prioritize 'Next Commute' information and reduce clutter from ancillary promotional banners.",
+    ],
+    "app_crash_freeze": [
+        "Institute staged rollouts on the Play Store (1% -> 5% -> 20% -> 100%) with automated crash-rate rollback thresholds.",
+        "Add automated Android cold-start smoke tests across common mid-tier devices (Samsung, Xiaomi, Vivo) before approving production releases.",
+        "Preserve persistent local session caching so app initialization failures do not invalidate auth tokens or corrupt SQLite local app state.",
+    ],
+    "login_auth": [
+        "Extend enterprise SSO session token lifespans with background token refresh so commuters aren't logged out right before their morning pickup.",
+        "Implement biometric quick-unlock (fingerprint/Face ID) as an alternative to repeated password/OTP entry at 7:00 AM.",
+        "Add graceful offline mode that displays the most recent active roster and cab details even during authentication server latency.",
+    ],
+    "booking_failure": [
+        "Replace ambiguous booking failure errors with actionable guidance (e.g., 'Shift cutoff closed 12 mins ago. Tap here to request emergency facility roster exception').",
+        "Introduce background auto-retry for booking requests made on weak networks, with clear visual feedback: 'Booking in progress — we will notify you once confirmed.'",
+        "Add two-way calendar sync for corporate shift schedules so employees don't have to manually book every recurring weekday shift.",
+    ],
+    "update_regression": [
+        "Enforce strict backward compatibility testing for local databases and cached preferences across updates.",
+        "Deploy Google Play In-App Updates (Flexible/Immediate) with instant rollback flags for critical release regressions.",
+        "Add release-day telemetry monitoring for crash spikes immediately following new version rollouts.",
+    ],
+    "tracking_inaccurate": [
+        "Implement Kalman filtering / GPS smoothing on driver location pings to eliminate pointer jumps and false 'Arrived' triggers.",
+        "Provide campus gate-specific pickup indicators rather than raw street coordinates.",
+        "Cache the last-known driver coordinates during network blips instead of clearing the tracking view.",
+    ],
+    "safety_concern": [
+        "Ensure SOS and emergency response features remain 1-tap accessible on the main screen during active trips.",
+        "Add automated check-ins if a vehicle remains stationary unexpectedly during night drops.",
+    ],
+}
+
+
 # Load the analysis output JSON produced by analyze_reviews.py
 def load_analysis():
     path = DATA / "analysis_output.json"
@@ -128,13 +167,20 @@ def format_journey_table(journey):
 
 
 # Format an individual priority callout card for the memo
-def _priority_block(recs, idx, emoji, title, solution_bullets):
+def _priority_block(recs, idx, emoji):
     if idx >= len(recs):
         return ""
     r = recs[idx]
-    label = ISSUE_LABELS.get(r["issue"], r["issue"])
-    explanation = PRIORITY_EXPLANATIONS.get(r["issue"], "This issue contributes measurably to user dissatisfaction.")
-    solutions = "\n".join(f"  - {b}" for b in solution_bullets)
+    issue_key = r["issue"]
+    label = ISSUE_LABELS.get(issue_key, issue_key)
+    explanation = PRIORITY_EXPLANATIONS.get(issue_key, "This issue contributes measurably to user dissatisfaction.")
+    default_solutions = [
+        "Implement automated regression testing and device-level telemetry.",
+        "Add proactive error handling and user-friendly fallback messaging.",
+        "Monitor failure rates in the weekly engineering dashboard.",
+    ]
+    solutions_list = SOLUTIONS_BY_ISSUE.get(issue_key, default_solutions)
+    solutions = "\n".join(f"  - {b}" for b in solutions_list)
     return f"""### {emoji} Priority {idx+1}: {label}
 - **Observed Volume:** {r['count']} reviews | **Average Score:** {r['avg_rating']}★ | **Rating Drag:** {r['weighted_drag']:.3f} ({r['share_pct']}% share)
 - **Why this hurts users:** {explanation}
@@ -152,14 +198,18 @@ def generate_memo(analysis):
     emp_journey = emp.get("journey_breakdown", {})
     emp_dev = emp.get("dev_reply_stats", {})
 
-    emp_rating = emp.get("overall_avg_rating", 3.79)
-    emp_reviews = emp.get("total_reviews", 53)
+    emp_rating = emp.get("overall_avg_rating", 2.97)
+    emp_reviews = emp.get("total_reviews", 120)
     drv_rating = drv.get("overall_avg_rating", 2.71)
     drv_reviews = drv.get("total_reviews", 7)
-    total_reviews = analysis.get("total_reviews", 60)
+    total_reviews = analysis.get("total_reviews", 127)
 
-    top3_drag = sum(r["weighted_drag"] for r in emp_recs[:3]) if emp_recs else 0.45
+    top3_drag = sum(r["weighted_drag"] for r in emp_recs[:3]) if emp_recs else 0.31
     target_rating = round(emp_rating + top3_drag, 2)
+
+    booking_neg = emp_journey.get("booking", {}).get("negative_pct", 77.8)
+    safety_neg = emp_journey.get("safety", {}).get("negative_pct", 75.0)
+    pickup_neg = emp_journey.get("pickup_tracking", {}).get("negative_pct", 42.1)
 
     memo = f"""# MoveInSync Play Store Rating Improvement & Journey Analysis
 ## Forward Deployed Engineering (FDE) Strategy Memo
@@ -173,15 +223,15 @@ def generate_memo(analysis):
 
 ## 1. Executive Summary
 
-MoveInSync’s **Employee App** currently sits at **{emp_rating}★** on the Google Play Store (across {emp_reviews} analyzed written reviews and over 114,000 lifetime ratings). While 3.8★ is acceptable for basic enterprise utilities, it falls short of the **4.5★+ benchmark** expected of mission-critical corporate infrastructure.
+MoveInSync’s **Employee App** currently sits at **{emp_rating}★** across recent written reviews on Google Play ({emp_reviews} analyzed reviews, against a lifetime store rating of 4.64★ across 114,000+ ratings). While the 4.64★ lifetime score reflects long-term brand equity, the recent cohort rating of {emp_rating}★ is an urgent red flag that falls far short of the **4.5★+ benchmark** expected of mission-critical corporate infrastructure.
 
 More critically, the **Driver Partner App** sits at **{drv_rating}★**, a dangerous rating that risks algorithmic de-prioritization in the Play Store, increases driver onboarding friction, and directly hurts fleet partner trust.
 
 ### The Real Problem
 This rating drop is not caused by general dislike of the product. In fact, satisfied employees consistently leave 5-star ratings praising the safety, cab cleanliness, and on-time dropoffs. The low ratings come from **acute, high-stress friction points during critical moments of the commute**:
-1. **App updates that break launch or crash on startup** (forcing users to uninstall and reinstall).
-2. **Clumsy interstitial dialogs at the pickup point** (like requiring users to dismiss a seatbelt reminder before they can view their boarding OTP).
-3. **Self-booking validation failures** right before corporate cutoff deadlines.
+1. **Clumsy interstitial dialogs at the pickup point** (like requiring users to dismiss a seatbelt reminder before they can view their boarding OTP).
+2. **App crashes, freezes, and launch failures** (forcing commuters to uninstall and reinstall mid-commute).
+3. **Login and authentication timeouts** right during morning rush hour.
 
 ### The Opportunity
 By systematically eliminating the top 3 root-cause bottlenecks identified in this analysis, the model projects an immediate rating recovery of **+{top3_drag:.2f} points**, lifting the Employee App from **{emp_rating}★ toward ~{target_rating}★**.
@@ -190,10 +240,10 @@ By systematically eliminating the top 3 root-cause bottlenecks identified in thi
 
 ## 2. Store Health & Baseline Metrics
 
-| Application | Play Store Rating | Analyzed Written Reviews | Total Lifetime Store Ratings | Health Status |
+| Application | Play Store Recent Rating | Analyzed Written Reviews | Total Lifetime Store Ratings | Health Status |
 |:---|:---:|:---:|:---:|:---|
-| **Employee App (`com.moveinsync.ets`)** | **{emp_rating}★** | {emp_reviews} | 114,879+ | ⚠️ At risk of dissatisfaction spikes |
-| **Driver Partner (`com.moveinsync.driver.dco`)** | **{drv_rating}★** | {drv_reviews} | 46 | 🚨 Severe rating penalty risk |
+| **Employee App (`com.moveinsync.ets`)** | **{emp_rating}★** | {emp_reviews} | 114,879+ (4.64★ lifetime) | ⚠️ Recent cohort dissatisfaction spikes |
+| **Driver Partner (`com.moveinsync.driver.dco`)** | **{drv_rating}★** | {drv_reviews} | 46 (3.50★ lifetime) | 🚨 Severe rating penalty risk |
 
 > **Key Context for Leadership:** In corporate transport, employees don't review the app when their ride is smooth. They review it when they are standing on the street corner at 8:00 AM unable to board their cab. Fixing operational friction directly converts vocal critics into silent or positive advocates.
 
@@ -217,9 +267,9 @@ To bridge customer pain with engineering action, every review was classified aga
 {format_journey_table(emp_journey)}
 
 ### What the Journey Breakdown Tells Us:
-1. **Self-Booking (100% Negative):** Self-booking is MoveInSync's primary flow. When it works, it is invisible. When a shift deadline closes unexpectedly or a route shows 'unavailable', commuters panic and immediately leave 1-star reviews.
-2. **Pickup & Live Tracking (60% Negative):** This is the moment of peak commute anxiety. If the driver is marked 'Arrived' but is at another gate, or if the live tracking pointer jumps erratically, employees lose confidence.
-3. **In-Ride & Boarding Safety (66.7% Negative):** The safety features are well-intentioned, but gating the Boarding OTP behind safety popups right when the commuter is opening the cab door is actively antagonizing daily riders.
+1. **Self-Booking ({booking_neg}% Negative):** Self-booking is MoveInSync's primary flow. When it works, it is invisible. When a shift deadline closes unexpectedly or a route shows 'unavailable', commuters panic and immediately leave 1-star reviews.
+2. **In-Ride & Boarding Safety ({safety_neg}% Negative):** The safety features are well-intentioned, but gating the Boarding OTP behind safety popups right when the commuter is opening the cab door is actively antagonizing daily riders.
+3. **Pickup & Live Tracking ({pickup_neg}% Negative):** This is the moment of peak commute anxiety. If the driver is marked 'Arrived' but is at another gate, or if the live tracking pointer jumps erratically, employees lose confidence.
 
 ---
 
@@ -243,32 +293,9 @@ These are real quotes extracted from recent MoveInSync Play Store reviews that i
 
 ## 6. Prioritized Engineering & Product Action Plan
 
-{_priority_block(
-    emp_recs, 0, "🔴", "Release Guardrails & Regression Prevention",
-    [
-        "Institute staged rollouts on the Play Store (1% -> 5% -> 20% -> 100%) with automated crash-rate thresholds.",
-        "Add automated Android cold-start smoke tests across common mid-tier devices (Samsung, Xiaomi, Vivo) before approving production releases.",
-        "Preserve persistent local session caching so updates do not invalidate existing auth tokens or corrupt SQLite local app state.",
-    ]
-)}
-
-{_priority_block(
-    emp_recs, 1, "🟠", "Eliminate Boarding & OTP Friction",
-    [
-        "Remove the interstitial seatbelt popup prior to OTP display. Show safety advisories passively inside the vehicle card or as an in-ride header banner instead.",
-        "Display the Boarding OTP directly on the persistent pickup card or inside an Android Quick Notification Widget so users never have to tap through menus to find it.",
-        "Ensure OTP retrieval is cached locally so low cellular reception at underground campus pickup points does not block boarding.",
-    ]
-)}
-
-{_priority_block(
-    emp_recs, 2, "🟡", "Self-Booking Reliability & Clear Cutoff Messaging",
-    [
-        "Replace ambiguous booking failure errors with actionable guidance (e.g., 'Shift cutoff closed 12 mins ago. Tap here to request emergency facility roster exception').",
-        "Introduce background auto-retry for booking requests made on weak networks, with clear visual feedback: 'Booking in progress — we will notify you once confirmed.'",
-        "Add two-way calendar sync for corporate shift schedules so employees don't have to manually book every recurring weekday shift.",
-    ]
-)}
+{_priority_block(emp_recs, 0, "🔴")}
+{_priority_block(emp_recs, 1, "🟠")}
+{_priority_block(emp_recs, 2, "🟡")}
 
 ### 🟢 Quick Win: 48-Hour Developer Response Playbook
 Currently, only **{emp_dev.get('reply_rate_pct', 0)}%** of reviews receive a developer reply. On Google Play, replying to a 1-star review with a concrete resolution or contact path results in **up to 25% of users revising their rating to 4 or 5 stars**.

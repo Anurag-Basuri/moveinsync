@@ -45,7 +45,7 @@ I defined 7 commute journey stages based on how a MoveInSync employee actually u
 ```text
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
 │  Self-Booking   │───►│ Cab Assignment  │───►│ Pickup & Track  │───►│ In-Ride & Safety│───►│Dropoff & Support│
-│ 100% Negative   │    │ Smooth / Auto   │    │ 60% Negative    │    │ 66.7% Negative  │    │ 50% Negative    │
+│ 77.8% Negative  │    │ Smooth / Auto   │    │ 42.1% Negative  │    │ 75.0% Negative  │    │ 50% Negative    │
 └─────────────────┘    └─────────────────┘    └─────────────────┘    └─────────────────┘    └─────────────────┘
 ```
 
@@ -61,7 +61,7 @@ I needed a metric that accounts for **both volume and severity**. This led to th
 
 $$\text{Rating Drag} = \frac{\text{Issue Review Count}}{\text{Total Reviews}} \times (\text{Overall Average} - \text{Issue Average Rating})$$
 
-- A 1-star app crash affecting 7.5% of reviews → high drag (0.211)
+- High-volume UI friction affecting 19.2% of reviews at 1.96★ → high drag (0.194)
 - A 3-star cosmetic suggestion affecting 5% of reviews → low drag
 
 This ensures engineering effort is directed at **what actually hurts the store rating**, not what's noisiest.
@@ -70,18 +70,18 @@ This ensures engineering effort is directed at **what actually hurts the store r
 
 ## What I Found
 
-### The Employee App (3.79★) — Fixable Problems
+### The Employee App (2.97★ Recent / 4.64★ Lifetime) — Fixable Problems
 
-The Employee App's rating isn't low because employees dislike corporate cabs. Hundreds of 5-star reviews praise comfortable rides, safe night dropoffs, and professional drivers. Ratings drop at **high-anxiety transition points**:
+While MoveInSync maintains a strong **4.64★ lifetime store rating** across 114,000+ ratings, recent commuter review sentiment has dropped to **2.97★** (across 120 analyzed written reviews). The rating isn't low because employees dislike corporate cabs — hundreds of 5-star reviews praise comfortable rides, safe night dropoffs, and professional drivers. Ratings drop at **high-anxiety transition points**:
 
-| Priority | Issue | Commute Stage | Avg Rating | Weighted Drag | What Happens |
-|:---:|:---|:---|:---:|:---:|:---|
-| **P0** | Update Regressions | App Launch | 1.0★ | **0.211** | App update crashes on open → user can't see cab → missed shift |
-| **P1** | UI/UX Friction | Boarding & OTP | 1.33★ | **0.139** | Seatbelt popup blocks boarding OTP → frustration at cab door |
-| **P2** | Booking Failures | Self-Booking | 1.0★ | **0.105** | Booking fails before roster cutoff → employee stranded |
-| **P3** | Tracking Inaccuracy | Pickup | 2.0★ | **0.101** | Driver marker jumps → employee waits at wrong gate |
+| Priority | Issue | Commute Stage | Reviews | Avg Rating | Weighted Drag | What Happens |
+|:---:|:---|:---|:---:|:---:|:---:|:---|
+| **P0** | UI/UX Friction & Extra Taps | Boarding & OTP | 23 | 1.96★ | **0.194** | Seatbelt popup blocks boarding OTP → frustration at cab door |
+| **P1** | App Crashes & Freezes | App Launch & Auth | 13 | 2.15★ | **0.088** | App freezes on open or during OTP retrieval → missed cab |
+| **P2** | Login & Auth Failures | Morning Setup | 5 | 2.40★ | **0.024** | SSO token expiry at 7:30 AM → employee can't see schedule |
+| **P3** | Booking Failures | Self-Booking | 3 | 2.00★ | **0.024** | Booking fails before roster cutoff → employee stranded |
 
-**Fixing just the top 3 issues recovers an estimated +0.45 rating points** (3.79★ → ~4.25★).
+**Fixing just the top 3 issues recovers an estimated +0.31 rating points** (2.97★ → ~3.28★).
 
 ### The Driver App (2.71★) — One Bottleneck
 
@@ -142,7 +142,7 @@ Tracks ratings, identifies the biggest drags on customer satisfaction, maps comp
 ![Employee App Dashboard](screenshots/employee_app_dashboard.png)
 
 ### Cross-App Comparison & Combined Intelligence
-Compares the Employee App (3.79★) against the Driver Partner App (2.71★), highlighting shared systemic issues and fleet-wide priorities.
+Compares the Employee App (2.97★) against the Driver Partner App (2.71★), highlighting shared systemic issues and fleet-wide priorities.
 
 ![Combined View Dashboard](screenshots/combined_view_dashboard.png)
 
